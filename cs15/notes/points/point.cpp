@@ -15,6 +15,12 @@ Point::Point()
     x = y = 0;
 }
 
+Point Point::add(Point other) 
+{
+    int x_coord = x + other.x;
+    int y_coord = y + other.y;
+    return Point(x_coord, y_coord);
+}
 void Point::print()
 {
     std::cout << "( " << x << ", " << y << " )\n";
