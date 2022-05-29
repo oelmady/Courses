@@ -1,0 +1,2758 @@
+<html data-lt-installed="true" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title>Tufts: Comp 15</title>
+        <link rel="stylesheet" type="text/css" href="Tufts%20Comp%2015_files/course.css">
+        <link rel="faqcss" type="text/css" href="https://www.cs.tufts.edu/comp/15-2021s/reference/faq.css">
+
+        <!-- the following removes the width limit. I find this very helpful for code segments. Comment out the style comment to remove this.-->
+        <style>
+            .plain_text {
+                max-width: 97.5em;
+            }
+            td {
+                vertical-align: top;
+                text-align: left;
+            }
+            table,
+            th,
+            td {
+                border: 1px solid black;
+            }
+            .terminal {
+                color: white;
+                font-family: Consolas, monaco, monospace;
+                margin-bottom: 10px;
+                margin-top: 10px;
+                padding: 5px;
+                background-color: black;
+            }
+            .code {
+                background-color: lightgray;
+                color: rgb(32, 34, 178);
+                font-family: Inconsolata, Monaco, Consolas, 'Courier New',
+                    Courier;
+                padding: 5px;
+            }
+            .important {
+                color: red;
+            }
+            .nocopy {
+                user-select: text;
+            }
+        </style>
+    </head>
+    <body>
+        <!--<div id="topmatter">
+            <div id="logo" onclick="document.location = './index.shtml'"></div>
+            <div id="topcontent">-->
+                <h1>
+                    CS 15: <br>
+                    Data Structures
+                </h1>
+                <h1>FAQ</h1>
+            </div>
+        </div>
+      <!--  <div id="menubar">
+            <span class="here">Home</span>
+            <a class="menu_item" href="https://www.cs.tufts.edu/comp/15-2021s/calendar.shtml">Calendar</a>
+            <a class="menu_item" href="https://www.cs.tufts.edu/comp/15-2021s/reference/index.shtml">Reference</a>
+            <a class="menu_item" href="https://www.cs.tufts.edu/comp/15-2021s/admin.shtml">Administration</a>
+        </div>  -->
+        <div id="maincontent" class="plain_text">
+            <h3>Welcome to the FAQ page! Type in any keyword to begin</h3>
+            <p>
+                The FAQ page has questions from previous semesters that can help
+                you if you are stuck, or have a general question. Spec specific
+                questions will still be answered over Piazza. Questions are
+                asked by students or written by TAs and answered by the teaching
+                staff.
+                <br>
+                <br>
+                You can only search by one word at a time.
+            </p>
+
+            <!-- Ellis work begins here. I plan to create a search field, and then a table,
+            Using this as a reference:  https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_filter_table -->
+            <!--ignore the additional styling after each td, it is not needed -->
+            <input type="text" id="search-bar" onkeyup="searchKeywords()" placeholder="Search by keyword" title="Type in a keyword" style="height: 30px; margin-bottom: 18px; margin-top: 5px">
+
+            <button onclick="clearSearches()">Clear search</button>
+
+            <table id="faqTable">
+                <tbody><tr class="header">
+                    <th style="width: 18%">Keyword</th>
+                    <th style="width: 25%">Question</th>
+                    <th>Answer</th>
+                </tr>
+                <tr>
+                    <td>Null character</td>
+                    <td>
+                        When compiling, I get “warning: null character ignored”.
+                        What does this mean?
+                    </td>
+                    <td>
+                        You have NUL characters ('\0') in your source code.
+                        Usually that's hard to do. I can think of a couple ways
+                        this can happen, one of which is a big problem. <br>
+                        <br>It's possible you actually have some NUL
+                        characters in your source code. That can happen through
+                        copy/paste (boo, hiss!), through a deliberate effort to
+                        put them there (unlikely if you're surprised and/or
+                        unhappy about it), or because you were editing a file
+                        over a flakey internet and they got inserted by a noisy
+                        connection (very unlikely in modern times). <br>
+                        <br>If this is the case, which, alas, I expect is
+                        unlikely, then open the file in an editor and remove
+                        them. Some editors may not show them, which makes it
+                        hard, but the error messages are telling you exactly
+                        where they are, e. g., on line 85, columns 1, 2, 3, 4.
+                        NUL characters will show up as ^@ in Emacs and some
+                        other editors, because Ctrl-@ is a way to type them.
+                        <br>My fear is that you may have destroyed your .cpp
+                        file by storing compiler or linker output there. This
+                        can happen if you separate the -o flag from the it's
+                        other half --- the file name for the output.
+                        <div class="terminal">
+                            clang++ -Wall -Wextra -o foo foo.cpp
+                        </div>
+                        will compile and link the file foo.cpp and save output
+                        into foo (-o foo)
+                        <div class="terminal">
+                            clang++ -Wall -Wextra -o foo.cpp foo.cpp
+                        </div>
+                        will compile and link the file foo.cpp and store the
+                        resulting executable file back in foo.cpp. This will
+                        destroy the contents of foo.cpp and replace it with
+                        binary data. If this happened to you, then the file is
+                        lost. You may be able to recover an earlier version by
+                        looking for editor backup files (files that end in ~ for
+                        Emacs and some other editors). If you have the file in
+                        an editor somewhere, then you can re-save what you have,
+                        and you may not have lost much if anything. If you've
+                        been storing your files on the department servers, then
+                        log in, go to the directory in question, and then "cd
+                        .snapshot" which will show you the available back-ups of
+                        the directory. <br><br>The backup system takes a
+                        snapshot of files about every 4 hours or so. Find the
+                        most recent backup that isn't binary junk (look the
+                        files from newest to oldest), and then copy that backed
+                        up file out to the directory. You will have lost work,
+                        but hopefully not too much. <br>
+                        <br>
+                        Otherwise, you may have to start over. The good news (if
+                        there is any) is that writing stuff the second time is
+                        much easier, since you solved all the problems already
+                        very recently.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Compiling, Throw, Error</td>
+                    <td>Throw is giving an error when compiling.</td>
+                    <td>
+                        make sure you
+                        <div class="code">#include &lt;stdexcept&gt;</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Quota, Disk space</td>
+                    <td>
+                        I am out of disk space, or i have reached my quota
+                        limit. What does this mean, and what should I do?
+                    </td>
+                    <td>
+                        Disk quota exceeded means you don't have any more space
+                        on your account. You need to delete unneeded files to
+                        free up space If you want to know how much space you're
+                        using, use the "quota" command.
+                        <div class="terminal">
+                            vm-hw03{kdesti01}58: quota <br>
+                            <br>Disk quotas for user kdesti01 (uid 38393):
+                            <br>
+                            <br>
+                            Filesystem space quota limit grace files quota limit
+                            grace <br>
+                            <br>vs-home:/tufts_ugrad 1920M 2765M 3072M 33589
+                            270k 300k
+                        </div>
+                        The space column says how much space you're using. The
+                        limit column is a hard upper limit on your disk usage.
+                        Try to exceed this limit causes "fatal error: error in
+                        backend: IO failure on output stream: Disk quota
+                        exceeded". If you just want to find and get rid of large
+                        files, the command:
+                        <div class="terminal">
+                            find . -maxdepth 1 ! -path . ! -path ./.snapshot
+                            -exec du -sh {} \; | sort -h
+                        </div>
+                        will output the size of the files and folders in the
+                        current directory (sorted from smallest to biggest)
+                        <div class="terminal">
+                            228K ./simulation <br>332K ./.kde <br>
+                            344K ./.nv <br>368K ./.npm <br>420K ./transcript
+                            <br>692K ./.gstreamer-0.10 <br>744K ./comp11
+                            <br>4.1M ./goto <br>4.2M ./comp111 <br>8.0M
+                            ./.debug 12M ./bin <br>14M ./.cache <br>17M
+                            ./comp122 <br>21M ./comp15 <br>
+                            28M ./PersonalProjects <br>32M ./Documents
+                            <br>38M ./.vscode-cpptools <br>70M ./.local
+                            <br>88M ./comp40 <br>93M ./.mozilla <br>95M
+                            ./TAcomp15 <br>153M ./.config <br>270M ./Desktop
+                            <br>1000M ./.vscode-server
+                        </div>
+
+                        You can then narrow down which files/folders take up a
+                        lot of space in your directory. If you absolutely can't
+                        figure out what's taking up space, shoot an email to
+                        quota@eecs.tufts.edu and ask them if they can increase
+                        your disk quota (you have to give them a number) and
+                        tell them why. In a pinch, often you can delete .o files
+                        from previous semesters / old folders, which can free a
+                        significiant amount of space without you "losing"
+                        anything, because you can always recompile if you want.
+                    </td>
+                </tr>
+
+                <tr><td class="xl65" style="height: 15.75pt; width: 76pt" width="101" height="21">
+                    Valgrind, Memory, Grading
+                </td>
+                <td class="xl65" style="border-left: none; width: 482pt" width="642">
+                    I have lost points due to valgrind errors.<br>
+                    <br>
+                    How are we graded based on memory leaks and memory errors?
+                </td>
+                <td class="xl66" style="border-left: none; width: 1670pt" width="2227">
+                    Pay attention to the "definitely lost" and
+                    "indirectly lost" sections of valgrind.<br>
+                    <br>
+                    <br>
+                    Also, we use different tests than you do. When you guys run
+                    valgrind, you are running it on the tests you came up with,
+                    meaning you probably missed some important edge cases. We
+                    are working on making it more accessible for you guys to see
+                    exactly which tests fail valgrind.
+                    <br>
+                    <br>
+                    You lose points based on the number of memory errors and
+                    leaks.<br>
+                    More errors and more leaks -&gt; more points lost<br>
+                    <br>
+                    Exact grading will be determined after you submit your
+                    assignment by the teaching staff, so there is no "10% of
+                    grade is valgrind" pre-determineded on memory leaks and
+                    memory errors
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Submit, Missing files
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    I am trying to submit but get a message saying I am missing
+                    files. Why?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    You have to spell the file name correctly, including case.
+                    In a pinch, you can create a file with the correct name and
+                    then submit with your (incorrectly named) file as an extra
+                    file. It's best to name the file correctly and give yourself
+                    time at the deadline to account for glitches.
+
+                    <br><br>
+                    If we are requiring you to submit a file, that means we
+                    expect the file, and if you don't have it, something is
+                    wrong.
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl68" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Submit, Late, Token, Late Token, Feedback
+                </td>
+                <td class="xl68" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    If we submit a hw assignment after the deadline (not using
+                    late tokens), could we still get some feedback for our own
+                    learning purposes even though we will receive a 0 as a
+                    grade?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    We do not take late submissions at all. You are welcome to
+                    bring your submission to office hours and discuss it with
+                    one of us.<br>
+                    There is no reason not to submit what you have by the
+                    deadline. Why take a 0 over some other non-0 score? If you
+                    have worked hard and made some progress, we will give you
+                    some credit for it.<br>
+                    Please submit your work, even if it isn't perfect. That's
+                    how you will get feedback!<br>
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Late Token
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    How are late tokens applied in the system? (asking y/n)
+                </td>
+                <td class="xl70" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    You need to say "y" to use a late token. Otherwise, you
+                    cannot submit your homework. If you say "n", your submission
+                    will not go through
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl68" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Style<br>
+                    Readme<br>
+                    provide
+                </td>
+                <td class="xl68" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    I'm aware that we should keep lines under 80 columns. Does
+                    this apply to the README file as well? <br>
+                    <br>
+                    I am wondering because I'd like to include the command to
+                    compile the program without splitting it up into different
+                    lines.
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Yes! README must be under 80 lines.<br>
+                    <br>
+                    To include the "how to compile command" on multiple lines,
+                    you can put a \ as the last thing on a line and then
+                    continue on the next line in the file. E. g.,
+                    <div class="terminal">
+                        provide comp15 hw97 file1.h file1.cpp \<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file2.h
+                        file2.cpp \<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file3.h
+                        file3.cpp
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Submit, Grading, Gradescope
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Will the assignment be on gradescope after I submit? I
+                    submitted my assignment, but I don't see anything yet. Is
+                    something wrong?
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    No, it will not be visible on gradescope until after it is
+                    graded. Do not worry- If the provide script ran then we have
+                    your submission.
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Style, Testing
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Do we need to write function contracts for unit test code?
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Yes.<br>
+                    Since this is code you submit, it must follow all the same
+                    rules as other function contracts.
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Throw, Exception, Error, Abort
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    What do "throw" errors look like in the terminal?
+                </td>
+                <td class="xl70" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    If a program crashes with an unhandled exception, then it
+                    prints a message like that "terminate" message
+                    and, if the it's one of the C++ exceptions, it prints the
+                    exception's message (it's "what()"). If that is
+                    the string you want in the message, then that's good!
+                    <br><br>Example:
+                     <div class="terminal">
+                        terminate called after throwing an instance of
+                        'std::runtime_error'<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;what(): &lt;error message&gt;<br>
+                        Aborted (core dumped)
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    const
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    How do we know when to use the const keyword? Should I
+                    include one in my copy constructor?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    "const" is used to indicate that something will
+                    not be (must not be) changed. It can get a bit murky, but
+                    the idea is fairly simple:<br>
+
+                    <div class="code">x = y;</div>
+                    You expect the above line to change x, but not y. The
+                    assignment operator for whatever the type of x and y are
+                    should not modify the right hand side object.
+                    <br><br>The copy constructor is similar: you expect it
+                    to initialize the new object, but not to change the existing
+                    object<br>
+                    <div class="code">
+                        DogHouse fluffy(snoopy); <br>// same as DogHouse
+                        fluffy = snoopy;
+                    </div>
+                    should not change snoopy.<br>
+
+                    <br>
+                    While you can just abide by that rule, writing const for the
+                    parameter is a written promise to the caller/client that you
+                    won't change the parameter, and the compiler will make sure
+                    you keep your promise.<br>
+                    So, I would write const on the copy constructor's
+                    parameter.<br><br>
+                </td>
+            </tr>
+            <tr>
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    String to int, Exception, Throw
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    How to convert an integer into a string?<br>
+                    <br>
+                    When throwing an exception, I need to print an integer as a
+                    string.
+                </td>
+                <td class="xl72" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Use
+                    <div class="code">to_string()</div>
+                    to convert an integer into a string<br>
+                    This will let you concatenate a string to a string
+                    representation of an integer in the exception messages.<br><br>
+                    See cplusplus.com for details on to_string if you need more
+                    information. It is available in C++ 2011.
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Exceptions, Valgrind, Memory, Possibly Lost
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Is it normal to have possibly lost memory when you throw an
+                    exception? I only seem to be losing memory when I throw
+                    exceptions and am not sure why.
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Yes, this is normal.<br><br>
+                    Why: When you raise an exception, it immediately leaves the
+                    current scope and goes up the call stack looking for a
+                    catch. Unless or until if finds one, it keeps leaving
+                    functions. If the program terminates, destructors will not
+                    have been run, and you not have recycled all memory. This
+                    makes sense, because the existence of an exception renders
+                    it questionable whether it is safe to run the destructors.
+                </td>
+            </tr>
+            <!--
+            <tr height="21" style="height: 15.75pt">
+                <td
+                    height="21"
+                    class="xl65"
+                    width="101"
+                    style="height: 15.75pt; border-top: none; width: 76pt"
+                >
+                    Throw exceptions,
+                    Unit testing,
+                    Testing
+                </td>
+                <td
+                    class="xl65"
+                    width="642"
+                    style="border-top: none; border-left: none; width: 482pt"
+                >
+                    How do I test my code that throws exceptions? <br /><br>
+                    How should I submit my code that throws exceptions?
+                </td>
+                <td
+                    class="xl65"
+                    width="2227"
+                    style="border-top: none; border-left: none; width: 1670pt"
+                >
+                    You need to test that your code throws exceptions when
+                    appropriate.<br><br> The question has arisen: are you required to
+                    catch exceptions?<br />
+                    No. You have two choices for testing cases that throw
+                    exceptions:<br />
+                    Write a test that generates the exception, and let your test
+                    program crash with an unhandled exception. Verify that the
+                    message is correct (it will print out). Then, you can
+                    comment that test out in testCharArrayList.cpp and put a
+                    note in the comments that the test ran as expected and
+                    passed (assuming that's true --- if not, describe the
+                    issue).<br />
+                    <br />
+                    Write a test that generates and then catches the exception,
+                    inspects the message, and prints out a success or failure
+                    message as appropriate. This is how our test code will
+                    work.<br />
+                    <br />
+                    There is no penalty for taking strategy 1 --- either way is
+                    fine. The important part here is not whether yo
+                </td>
+            </tr>
+        -->
+
+            <!--
+
+
+            <tr height="21" style="height: 15.75pt">
+                <td
+                    height="21"
+                    class="xl65"
+                    width="101"
+                    style="height: 15.75pt; border-top: none; width: 76pt"
+                >
+                    Try catch,
+                    Exceptions,
+                    Throw,
+                    Unit testing,
+                    testing
+                </td>
+                <td
+                    class="xl65"
+                    width="642"
+                    style="border-top: none; border-left: none; width: 482pt"
+                >
+                    Should I do try catch or just throw exceptions?
+                </td>
+                <td
+                    class="xl65"
+                    width="2227"
+                    style="border-top: none; border-left: none; width: 1670pt"
+                >
+                    Who is doing the throwing? Who, if anyone, is required to
+                    catch the exceptions?<br />
+                    <br />
+                    Note that your test code (in testCharArrayList.cpp) is
+                    client code. It uses the implementation, but it is written
+                    with knowledge of the implementation: you want to
+                    specifically test normal, edge, and error cases. That means
+                    that there should be some test code that causes
+                    exceptions.<br />
+                    <br />
+                    In this case, you have two choices that are both
+                    acceptable:<br /><br>
+                    -&nbsp;You can let the test case(s) crash the program. If they do
+                    so as expected, then you can comment those cases out with a
+                    note that the test crashed as expected so that the rest of
+                    the test program can run. This shows us how you tested the
+                    corresponding requirement.<br /><br>
+                    -&nbsp;You can catch the exception, verify the message, and report
+                    success or failure and then allow the rest of the test
+                    program to run.<br />
+                    <br />
+                    Again, both of these choices are fine for the test program,
+                    but we do want to see that you tested the relevant cases
+                </td>
+            </tr>
+        -->
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Testing, Unit test, submission
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Do we need to submit our test files?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Yes. You are graded on your test files as provided, as well
+                    as the testing description in your README.
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    README
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    What do I do if I'm not provided a README?
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    If for some reason there is no README provided on any
+                    homework or project, then you must make one and fill it out.
+                </td>
+            </tr>
+
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl75" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Empty Character, Null Character
+                </td>
+                <td class="xl75" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    General question: When we have data that is not accessible
+                    to the user, but is data that we have allocated, what do we
+                    store in it?
+                    <br><br>
+                    As a specific question to Array List containing characters,
+                    when capacity is greater than the number of characters
+                    actually stored in the CharArrayList, what represents the
+                    empty space? Do we use '\0' for it?
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    No. When we have data allocated, that is not going to be
+                    read before its set again, we don't care about its
+                    "perceived value".
+                    <br><br>
+                    As in, until the memory is actually initialized with some
+                    value you care about, it can be pretty much anything. They
+                    are just addresses in memory, so they could hold all sorts
+                    of wacky values.<br>
+
+                    <br>In fact, it's kind of a fun experiment to allocate an
+                    array of some size, say 100 integers, and then print out the
+                    values of them. You might be surprised by the result!
+
+                    <br><br>
+                    To answer the specific question, we do not change the values
+                    in our CharArrayList to the null character, because we will
+                    never read them until after they are set again (and
+                    therefore do not have used value), and we keep track of that
+                    using the "num items" and "capacity" private data memebers.
+                </td>
+            </tr>
+
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    .h, .cpp, functions, definitions
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    For certain functions, can I write helpers in my .cpp files
+                    without defining them in my .h file?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    For member functions, you MUST put them in the .h file!<br>
+                    If they are not member functions, then just declare them in
+                    the .cpp file.
+                    <br>
+                    <br>
+                    In fact, it is normal to put the keyword "static"
+                    before functions that are purely local to the .cpp file.
+                    That actively hides them from other files. This is very
+                    important to do in large systems where someone might
+                    accidentally use the same name as one of your functions.
+                    <br>
+                    <br>
+                    <br>
+                    Because we are not writing such large things, we won't
+                    require "static," but you can do it if you like.
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    shrink (specific to ArrayList/LinkedList), testing, private
+                    functions
+                </td>
+                <td class="xl73" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Since we cannot add any public functions, I was wondering
+                    how we can test our shrink function (or any other general
+                    private function) since currently there is no public
+                    function that returns the capacity.
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    This is a very good question.<br><br>
+                    Some functions may be hard to test, and, of course, Comp 15
+                    does not require that students do anything that is
+                    impossible.<br>
+                    You have to decide what, if anything, you can do in these
+                    cases. Since you implemented the functions, only you know
+                    the details about what constitutes a good test (exactly what
+                    boundary conditions there are, if any, what values might be
+                    problematic, etc.).<br>
+                    If it helps, you may temporarily create a public test
+                    function in order to test some function. If you do that, you
+                    must<br>
+                    Make it private after your tests and before you submit,
+                    and<br>
+                    <br>
+                    Document that you did this in your testing documentation (in
+                    your README and/or test file). You could say, "to test
+                    the X function, I created a test_X function and temporarily
+                    made it public and then called it with arguments Y and Z.
+                    This verifies ..." Also leave the test code in place
+                    that called the public function, but obviously you will need
+                    to comment it out, or the program won't compile and link
+                    after the function is made private.
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Style, Testing
+                </td>
+                <td class="xl68" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Do the test functions need to be under 30 lines or are they
+                    an exception? I find that some of my test functions for
+                    functions that are a little more complex can get a bit long.
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Test files still need to adhere to the style guide! Try to
+                    modularize your code. Use helper functions to break down the
+                    complexity.
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Style
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Between the { and } for int main, can there only be 30 lines
+                    of testing code?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Yes. "All code you write" includes main.cpp.
+                    Because you expect humans to read it, it must adhere to the
+                    guidelines for readability.
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Type
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Why do you need to add typename before the function
+                    signature?
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    So that the compiler knows what you mean to make.
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Template
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Should I write Typedef char E or T?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Parameter names are your choice. Template parameters are
+                    like function parameters: From C++'s point of view the names
+                    don't matter. You pick.<br>
+                    <br>
+                    You have to be consistent within a single template, but you
+                    don't have to use the same name everywhere. However, if all
+                    your templates are being used for a common purpose, then it
+                    does make sense to use the same name throughout your
+                    definitions.
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Logistics, Atom, Authentication, Halligan
+                </td>
+                <td class="xl68" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    When I try to save my code on atom, I get the following
+                    message: Error: all configured authentication methods
+                    failed. No new edits show up when I compile and run my code.
+                    I used atom last semester and never ran into this issue.
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Did you change your halligan/cs login password? I had this
+                    issue until I reconfigured Remote Sync Pro for my new
+                    password.
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Assignment Operator, Pointer, Reference
+                </td>
+                <td class="xl68" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    For the assignment operator, it says to "return a
+                    reference to the lhs". Using the example of the
+                    LinkedList class, does this mean that the operator should
+                    return a LinkedList or LinkedList pointer?
+                </td>
+                <td class="xl74" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    It returns a reference to a LinkedList, which is neither an
+                    object itself nor a pointer.<br><br>
+                    It is a reference to the object that the assignment operator
+                    was called on.<br>
+                    More info about what references are:
+                    <a href="https://www.geeksforgeeks.org/references-in-c/" target="_parent"><span style="
+                                color: #333333;
+                                background-color: rgb(169, 220, 252);
+                            ">
+                            https://www.geeksforgeeks.org/references-in-c/<br>
+                            <br> </span></a>
+                    More in depth answer --<br>
+                    C++ references and pointers are different, though references
+                    can be implemented using pointers behind the scenes with the
+                    compiler doing all the addressing and dereferencing
+                    automatically. <br>
+                    They are different, however, for very practical reasons: the
+                    compiler is free to eliminate any pointers involved in the
+                    use of references if it can, but it cannot, in general,
+                    eliminate pointers created by the programmer.<br>
+                    A reference is a programmer-declared alias, in which a
+                    variable refers directly to the memory associated with
+                    another variable. (That sounds like a pointer, but compilers
+                    can be very tricky and can even avoid creating variables
+                    sometimes.) A pointer variable is a location in memory (a
+                    variable) that can contain the address (pointer value) of
+                    some location in memory. Pointer values stored in pointer
+                    variables are programmer manipulable (you can pass them
+                    around, store them in other places, return from functions).
+                    <br><br>
+                    The comp15 page has an explanation of pointers and
+                    references that may be helpful. On the website under
+                    <a href="https://www.cs.tufts.edu/comp/15-2021s/reference/reference/comp11_pointers/index.shtml">
+                        References -&gt; Pointers.</a>
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl73" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Readme, Algorithms
+                </td>
+                <td class="xl73" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Is the algorithm overview section of the README relevant for
+                    this assignment? Should we write pseudocode for particularly
+                    ticky functions or skip this all together?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    If you have any tricky algorithms, then definitely put a
+                    pseudocode description in the README.
+                    <br><br>
+                    If you are unsure about what to write, think about what
+                    algorithms are relevant to this assignment. If you can think
+                    of anything relevant, you should describe them here.
+                </td>
+            </tr>
+            <tr style="height: 15.75pt" height="21">
+                <td class="xl65" style="height: 15.75pt; border-top: none; width: 76pt" width="101" height="21">
+                    Destructor, clear, modularity
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    How to avoid calling the destructor twice?<br>
+                    In my clear function, I call a helper function that deletes
+                    all nodes in order to clear the LinkedList in the same way a
+                    destructor would. Unfortunately, when the LinkedList then
+                    goes out of scope, the destructor is called again, resulting
+                    in a valgrind double free error because the program is
+                    trying to clear memory that has already been cleared.<br>
+                    Is there a way to bypass the calling the destructor on an
+                    empty LinkedList, for example?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    The clear function should delete all the nodes like a
+                    destructor would, and writing a helper function to use in
+                    both the clear function and the destructor is a good example
+                    of modularity. However, there is no way to circumvent
+                    calling the destructor; it's an essential part of how a
+                    class functions. But, both clear() and the destructor should
+                    work on an empty list, so could you potentially add a
+                    condition to your helper function in the case of an empty
+                    list, which would prevent trying to free an empty list?
+                </td>
+            </tr>
+            <tr style="height: 89.25pt" height="119">
+                <td class="xl65" style="height: 89.25pt; border-top: none; width: 76pt" width="101" height="119">
+                    Iterators, Polymorphism
+                </td>
+                <td class="xl68" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Since we're already using templates doesn't it make sense to
+                    get even more "polymorphic" and use iterators as well?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    No :-) Actually, it's not a bad idea, and good for you for
+                    investigating, but...<br>
+                    This is not a "C++ course," that is, C++ is not
+                    the primary object of study. Data structures are. So, while
+                    there is necessarily a lot of C++-specific stuff in the
+                    course, we just can't do a complete tour of C++ features,
+                    even extremely useful and common ones. I already feel that
+                    the first part of the course is rather thick with C++ stuff
+                    like assignment operator overloading and copy constructors,
+                    but nothing will work if you don't do those.<br>
+                    Iterators are great, and in a professional setting you
+                    should use them, but I am prioritizing other things. Others
+                    could make perfectly sensible other choices.<br>
+                    I would still do interfaces with abstract classes before
+                    iterators, in fact, and we may talk about that --- we did in
+                    the spring as a kind of additional topic. I might suggest
+                    "concepts," too, but I haven't really caught up on
+                    everything (I think they are for bounded quantification of
+                    generic types, and that can get much better error
+                    messages.)<br>
+                    Anyway, there are lots of good things, and we can't cover
+                    them all, so we pick. <br>
+                    (In fact, modern C++ should use smart pointers, but we don't
+                    teach that, because (a) they're hard to see the value of
+                    until you know the underlying stuff and what can go wrong,
+                    and (b) we want students to be ready for Comp 40, which
+                    assumes students are very comfortable with raw pointers and
+                    can move easily to C.)
+                </td>
+            </tr>
+            <tr style="height: 229.5pt" height="306">
+                <td class="xl65" style="height: 229.5pt; border-top: none; width: 76pt" width="101" height="306">
+                    Logistics, Back up, Save
+                </td>
+                <td class="xl68" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Whats the best way to go about backing up our code? Copying
+                    all of the files into a back-up directory using the cp
+                    command? If we should use the cp command, should any options
+                    be used?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Sure, using cp is one way to copy files. The regular cp
+                    command copies files one by one. So for example<br>
+                    <div class="terminal">cp /somedirectory/somefile ./</div>
+
+                    will make a copy of somefile located in the directory
+                    /somedirectory into your current folder.<br>
+                    <div class="terminal">cp /somedirectory/ * ./</div>
+
+                    will copy all of the files in /somedirectory into the
+                    current directory.<br>
+                    However, if you want to copy an entire directory, which is
+                    what I'm guessing you want to do, you would do<br>
+                    <div class="terminal">
+                        cp -r /somedirectory /path/where/you/want/the/copy
+                    </div>
+                    In fact, cp does a lot of other things. Try this out:<br>
+                    <div class="important">man cp</div>
+
+                    That will open the manual page for the program cp! It has
+                    lots of other options that can be useful to you. In fact,
+                    most commands you are used to running like ls, cd, mkdir,
+                    touch, cat etc. have man pages. Just type man in front of
+                    your favorite command to see all that you can do.<br>
+                    In fact learning to read and understand man pages will
+                    benefit you greatly! I learned this the hard way, and sort
+                    of forced myself to take the time to read the documentation,
+                    and it really has payed off!<br>
+                    <br>
+                    <br>
+                    Also,<br>
+                    If you're working directly on halligan, the halligan server
+                    automatically backs up all of your files. It saves versions
+                    every 4 hours (for the past 24 hours), every day (for 6 days
+                    before that), and every week (for the 3 weeks before
+                    that).<br>
+                    You can access those backups by going to the .snapshot
+                    directory in your home directory.<br>
+                    <div class="terminal">cd ~/.snapshot</div>
+                    There, you can browse through the various backups and copy
+                    the files you need back to your working directory.
+                </td>
+            </tr>
+            <tr style="height: 89.25pt" height="119">
+                <td class="xl65" style="height: 89.25pt; border-top: none; width: 76pt" width="101" height="119">
+                    Exception, Abort, What
+                </td>
+                <td class="xl68" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    After an exception is called, I get the message I'm supposed
+                    to get but there is also an 'Abort'. Is that normal?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    If that looks like what you're getting:
+                    <div class="terminal">
+                        terminate called after throwing an instance of
+                        'std::runtime_error'<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;what(): &lt;error message&gt;<br>
+                        Aborted (core dumped)
+                    </div>
+                    Then that's totally fine. Different systems have different
+                    ways of displaying exceptions. The output on my mac is
+                    slightly different from the ones on the halligan, and that's
+                    all right. They are all standard library's way of displaying
+                    and formatting an uncaught exception.<br>
+                    In real life, people who are using your code are probably
+                    going to
+                    <div class="code">try{} catch{}</div>
+                    your exception (which is where the name "uncaught
+                    exceptions" comes from) so they know when they're doing
+                    something wrong without crashing the application. And your
+                    exception message is going to be passed onto the code that
+                    "catches" your error, without the
+                    "abort" or any of the formatting added.
+                </td>
+            </tr>
+            <tr style="height: 313.5pt" height="418">
+                <td class="xl65" style="height: 313.5pt; border-top: none; width: 76pt" width="101" height="418">
+                    Overload
+                </td>
+                <td class="xl68" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    I have always wondered why when we are overloading the
+                    "=" operator, there is the address operand &amp;
+                    yet the address operand never appears when overloading
+                    "==" or "&lt;" or even "&gt;"
+                    operators.
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    <div class="important">
+                        For this answer, we have a student answer, and an added
+                        follow up response. This is a good discussion, so the
+                        whole thing is left here. <br>
+                    </div>
+                    <br>
+                    Student answer:<br>
+                    <br>
+                    For overloading the "=":<br>
+                    If X=Y , "=" is an assignment operation that maps the value
+                    of Y to X. Returning a reference allows transitivity.
+
+                    <br><br>
+                    If you know about relations you know "=" is the most trivial
+                    example of an equivalence relation. "=" allows chaining so
+                    X=Y and Y=Z we can just write X=Y=Z. operator= actually
+                    assigns something to the object. So if I say X=Y=Z=5 this is
+                    X = (Y = (Z = 5) ). 5 is assigned to Z then return Z then Z
+                    is assigned to Y return Y then assign Y to X. So to do a
+                    chain you must return a reference to the LHS of the = each
+                    time. Hence we return *this not this. <br><br>
+                    For overloading comparison operators like "==":<br>
+                    You don't need to return a reference to any object you just
+                    compare and return a bool result. <br><br>
+                    <br><br>
+
+                    Follow up by instructor:<br>
+                    <br><br>
+                    Excellent student answer!<br><br>
+                    Emphasize: in a typical assignment overload, the &amp;
+                    symbol appears in 3 places. In one of those places, it's the
+                    "address of" operator: (this != &amp;rhs) (or
+                    similar). In this case, you are taking the address of rhs
+                    and seeing if this contains that address --- if so, then you
+                    are assigning an object to itself, and maybe there isn't
+                    much to do in that case.<br><br>
+                    In the function header, &amp; is used in the parameter and
+                    return declarations to indicate those are references: it's
+                    an indicator of a reference (the function takes and returns
+                    a reference to an instance of the class). While under the
+                    covers they may be (and often are) implemented with pointer
+                    values, they are not a case where the programmer is
+                    explicitly taking the address of anything.<br><br>
+                    The student answer gets at exactly why the assignment
+                    returns a reference: You want to be able to chain
+                    assignments (C++ allows that, and if your assignment
+                    doesn't, then clients will be frustrated and confused). If
+                    it weren't a reference, then there could be an extra copy
+                    where you assign an object, the make a copy of the assigned
+                    object to return, and then each = in the chain would create
+                    a copy that was immediately destroyed after the assignment.
+                    So, a reference wins. Note the object whose reference you
+                    return is guaranteed to exist after the overload function
+                    runs, because it was already there: there had to be
+                    something for this to point to. The argument is passed by
+                    (const) reference to avoid making a copy.<br><br>
+                    You can pass references to &lt;, &gt;, ==, but there is
+                    really no point in returning a reference to a boolean, and
+                    if you did, what reference would you return? You cannot
+                    return a reference to a local variable on the stack (or you
+                    don't want to). So, booleans are cheap to copy and you don't
+                    actually have an existing boolean variable to return a
+                    reference to. You can pass the arguments by reference for
+                    these, and that's the normal procedure. Again, it avoids
+                    making extra copies just to compare things.
+                </td>
+            </tr>
+            <tr style="height: 28.5pt" height="38">
+                <td class="xl65" style="height: 28.5pt; border-top: none; width: 76pt" width="101" height="38">
+                    Template Error
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Compiling error after adding templates that say, "expected a
+                    qualified name after 'typename',"<br>
+                    and "warning: declaration does not declare anything."
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    In this case, you cannot write "typename," you
+                    have to write "class" (or "class",
+                    "struct", or "union", but we don't use
+                    unions in Comp 15).
+                </td>
+            </tr>
+            <!-- removed because too specifc
+            <tr height="38" style="height: 28.5pt">
+                <td
+                >
+                    Exception
+                </td>
+                <td
+                >
+                    If the linked list is empty and has no elements in it should
+                    a range_error be thrown when replaceAt() is called?
+                </td>
+                <td
+                    class="xl65"
+                    width="2227"
+                    style="border-top: none; border-left: none; width: 1670pt"
+                >
+                    Yes. As the spec says, throw the exception.
+                </td>
+            </tr>
+            -->
+            <tr style="height: 42.75pt" height="57">
+                <td class="xl65" style="height: 42.75pt; border-top: none; width: 76pt" width="101" height="57">
+                    Illegal Instruction
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    When I try to test my assignment operator, the terminal says
+                    "illegal instruction" but when I put a print
+                    statement at the end of the assignment operator function it
+                    prints exactly what I want it do, so it seems like it's
+                    working, but once it runs in the test file it returns the
+                    "illegal instruction."
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    "Illegal Instruction" errors are often caused when
+                    a the code reaches the end of a function but doesn't return
+                    anything when the function is supposed to return something.
+                    You may remember also that assignment operators are not like
+                    constructors, they must return the object its working on,
+                    namely with "return *this;"<br>
+                    <br>
+                    One thing to look out for is when you compile, if there are
+                    warnings that say "function may reach end of non-void
+                    function," that usually indicates a return call is
+                    missing.
+                </td>
+            </tr>
+            <tr style="height: 28.5pt" height="38">
+                <td class="xl65" style="height: 28.5pt; border-top: none; width: 76pt" width="101" height="38">
+                    Destructor
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Is it possible to call a destructor within class functions?
+                    Say, in the assignment operator function, it is possible to
+                    call a destructor then return a new list?
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    You should not call the destructor directly, but you can
+                    make a separate function and have the destructor and other
+                    functions call it.
+                </td>
+            </tr>
+            <tr style="height: 38.25pt" height="51">
+                <td class="xl65" style="height: 38.25pt; border-top: none; width: 76pt" width="101" height="51">
+                    Template
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    How do I write an assignment operator using templating?
+                    <br><br>
+                    Can you use a LinkedList as an example?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    <div class="code">
+                        LinkedList&lt;E&gt;&amp; LinkedList&lt;E&gt;::operator=
+                        (const LinkedList&lt;E&gt; &amp;other)
+                    </div>
+                    <br>
+                    <br>
+                    Logic: When you make a templated class, say List, there is
+                    no thing of type List. It has to be List
+                    &lt;...something...&gt; to fill in the template. If you know
+                    the type, you can write List&lt;int&gt; or
+                    List&lt;SpaceStation&gt;. If you are writing another
+                    template, then the type of the list may depend on the
+                    template type parameter(s).
+                </td>
+            </tr>
+            <tr style="height: 128.25pt" height="171">
+                <td class="xl65" style="height: 128.25pt; border-top: none; width: 76pt" width="101" height="171">
+                    Logistics, Atom, Tabs
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Way to check that tabs formatted properly in Atom?
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    In Atom you can go to Settings - Editor, and check the
+                    "Show Invisibles" option.<br>
+                    <br>
+                    Additional tips:<br>
+                    <br>
+                    In your working directory, type in the following command in
+                    the terminal. If the output produced is a bunch of words in
+                    your code, it indicates that there are tabs present in those
+                    locations in your file. If the output is nothing, then no
+                    tabs were detected and you should be good.<br>
+                    <div class="terminal">grep -P '\t' *</div>
+                    Also,
+                    <div class="terminal">
+                        /comp/15/bin/has_tabs &lt; file-name &gt;
+                    </div>
+                    will check.
+                </td>
+            </tr>
+            <tr style="height: 99.75pt" height="133">
+                <td class="xl65" style="height: 99.75pt; border-top: none; width: 76pt" width="101" height="133">
+                    Late token, Submission, Resubmit
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    I submitted using a late token, but now want to submit
+                    again, right after my last submission. It is still within
+                    the 24 hour window provided by the first late token.
+                    <br><br>Will it require a second late token to submit
+                    again?
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    No, it would not cost an additional late token to submit.
+                    <br>
+                    <br>
+                    From the course administration page, "Each token grants you
+                    a 1-day (24 hours) extension, no questions asked. You don't
+                    have to do anything to use a token. We'll check when your
+                    work comes in and deduct the appropriate tokens from your
+                    bank." <br>
+                    <br>
+                    <br>
+                    However, if your homework has already been graded since your
+                    last submission, we will not grade the new submission. From
+                    the course website, "If you intend to use tokens, you must
+                    not submit until you are ready for your code to be graded.
+                    We may start grading submissions any time after the
+                    deadline. We will grade the most recent submission as of the
+                    time we grade your assignment. But, if you submit something
+                    before the deadline as a hedge, we may grade that. If you
+                    submit again a day later, for example, intending to use a
+                    token, we will not grade the new assignment.
+                </td>
+            </tr>
+            <tr style="height: 114pt" height="152">
+                <td class="xl65" style="height: 114pt; border-top: none; width: 76pt" width="101" height="152">
+                    Segfault, Seg fault, Undefined behavior, Reference
+                    implementation, demo program
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    The reference implementation segfaults / has undefined
+                    behavior / ect on a non valid input (described as non valid
+                    by the spec).
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    As described by the spec, if explictly we say that you can
+                    always assume a valid input, then there is no problem if the
+                    reference/demo or your code has undefined behavior on a non
+                    valid input.
+                </td>
+            </tr>
+            <tr style="height: 57pt" height="76">
+                <td class="xl65" style="height: 57pt; border-top: none; width: 76pt" width="101" height="76">
+                    Warnings, Grading, Compiling, Late token
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    I get warnings when I compile. How will this affect my
+                    score?
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Warnings will lose you some points, but often help identify
+                    sources of bigger problems in your code. Try to resolve all
+                    warnings before your final submission. However, if you do
+                    submit code that compiles with warnings, only a few points
+                    would be lost - it would not be advised for you to use a
+                    late token to resolve warnings, if your program otherwise
+                    works correctly.
+                </td>
+            </tr>
+            <tr style="height: 57pt" height="76">
+                <td class="xl65" style="height: 57pt; border-top: none; width: 76pt" width="101" height="76">
+                    Queue, invariant, data structure, index
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    For my implementation, I would like to use a QUEUE data
+                    structure, that allows me to remove from an index that is
+                    not the first in queue. Is this allowed?
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    No, queue data structures follow the first in, first out
+                    invariant -&gt; you cannot remove elements from the middle
+                    of a queue. This would break the invariant of a queue.
+                </td>
+            </tr>
+            <tr style="height: 42.75pt" height="57">
+                <td class="xl65" style="height: 42.75pt; border-top: none; width: 76pt" width="101" height="57">
+                    README, input, output, testing, files
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Do I need to submit my input and output files used in
+                    testing, and describe them in the README?
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Yes. We need to view your testing files in order to give you
+                    credit for them. Please also include a brief description of
+                    each test file in your README.
+                </td>
+            </tr>
+            <tr style="height: 71.25pt" height="95">
+                <td class="xl65" style="height: 71.25pt; border-top: none; width: 76pt" width="101" height="95">
+                    Word count, atom, line wrap, grading, style, line length, WC
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    When I run the
+                    <div class="terminal">wc -L *</div>
+                    command to check for line length, it says that some of my
+                    files have line lengths over 80. I also keep losing points
+                    for this in the homeworks.<br><br>
+                    However, since the first assignment, I have kept all my
+                    lines below 65 in Atom. I have line wrap set to 65 chars. I
+                    was wondering what is causing this discrepancy because I
+                    don't think that I can make my lines any shorter in Atom
+                    otherwise my code would be unreadable.
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Be careful! For example, setting your editor to wrap doesn't
+                    necessarily mean that the lines are less than 76 or 65
+                    characters: it can mean that it wraps in your viewer if the
+                    line is longer.<br>
+                    <br>
+                    Note: for Atom, this is indicated on the left side by a dot,
+                    rather than the line number.
+                </td>
+            </tr>
+            <tr style="height: 102pt" height="136">
+                <td class="xl65" style="height: 102pt; border-top: none; width: 76pt" width="101" height="136">
+                    Autograder, cout, cerr, redirect, input, output file, diff
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Does the autograder care whether we use cout or cerr?<br>
+                    <br>
+                    I know that using &gt; to redirect output into a file
+                    doesn't redirect cerr in unix, so I was wondering if the
+                    autograder requires output to go to cout so it can redirect
+                    it and run `diff` on the resulting file.
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    You must follow the specification in the assignment.<br>
+                    <br>
+                    You may use cerr for debugging purposes, but then you should
+                    remove that output before you turn it in.<br>
+                    <br>
+                    <br>
+                    Redirection from the command line does not show up in the
+                    program in any way (that we can detect with Comp 15
+                    programs), which is the beauty of shell I/O redirection.
+                    <br>
+                    The autograder actually captures both standard output and
+                    standard error output. If the assignment requires output to
+                    cerr, we can check it, and if it does not, then there may be
+                    (and usually is) a penalty for inappropriate output to
+                    cerr.<br>
+                    Again, this doesn't mean you should be shy about using cerr
+                    for debugging purposes!
+                </td>
+            </tr>
+            <tr style="height: 57pt" height="76">
+                <td class="xl65" style="height: 57pt; border-top: none; width: 76pt" width="101" height="76">
+                    Valgrind, blocks, memory, leak, error
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Just ran valgrind on my program, and noticed that it says
+                    there are over 90,000 bytes in 7 blocks use at exit,
+                    although it also says there are no bytes lost or errors
+                    detected. Is this a problem? It seems off to me, since
+                    90,000 is a lot more than the usual 72,000.
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    90,000 is too many, something is up. Not sure what.<br>
+                    No errors is good, but that's a separate issue. Look at
+                    allocs vs frees. There should be 1 alloc and 0 frees
+                    (because our libraries do that --- it's where the 72,704
+                    bytes come from).<br>
+                    You can rerun valgrind with
+                    <span class="important">--leak-check=full</span> to see what
+                    else is going on.
+                </td>
+            </tr>
+            <tr style="height: 63.75pt" height="85">
+                <td class="xl65" style="height: 63.75pt; border-top: none; width: 76pt" width="101" height="85">
+                    README, purpose
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    The README for (some homework) already has a program purpose
+                    written along with some file descriptions. <br>
+                    <br>
+                    <br>
+                    Should we leave these as they are or change them?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    If they are true and complete, then you may leave them. If
+                    they are not, then please update them!
+                </td>
+            </tr>
+            <tr style="height: 42.75pt" height="57">
+                <td class="xl65" style="height: 42.75pt; border-top: none; width: 76pt" width="101" height="57">
+                    Submit, homework, provide
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    I went to submit my homework, but the command did not work?
+                    I can't submit my homework yet?
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    The course staff needs to enable the script to submit
+                    homework. The provide command may not be ready yet, but
+                    should be released at least a few days before the homework
+                    deadline. <br>
+                    <br>
+                    Feel free to post on piazza to find out when provide will be
+                    ready.
+                </td>
+            </tr>
+            <tr style="height: 51pt" height="68">
+                <td class="xl65" style="height: 51pt; border-top: none; width: 76pt" width="101" height="68">
+                    Exit<br>
+                    Exit failure,<br>
+                    exit()
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    What command should we use to quit our programs when an
+                    invalid filename is used?<br>
+                    Should we use
+                    <div class="code">EXIT(exit_failure)?</div>
+                    <br>
+                    <br>
+                    Note: this only applies when the spec tells your program to
+                    quit on an invalid file name.
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Depends on where the relevant code is. If you are in main,
+                    then just returning EXIT_FAILURE will do (that name is
+                    defined in cstdlib and is more of a C thing, but I think
+                    it's quite reasonable).<br>
+                    If you are in another function, then you may exit as you
+                    describe or return an error indication and let it bubble up
+                    to main or throw an exception that you catch in main. You
+                    should do whatever is cleanest for your implementation!
+                </td>
+            </tr>
+            <tr style="height: 71.25pt" height="95">
+                <td class="xl65" style="height: 71.25pt; border-top: none; width: 76pt" width="101" height="95">
+                    .h file, filename, functions, .cpp, structs, classes
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    In the given (filename).h there were some functions both
+                    declared and implemented in the .h file, can I do this as
+                    well or is it considered bad style? Is it only allowed for
+                    constructors?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    It's customary to do that for structs, but classes should
+                    have a separate .cpp file. <br>
+                    <br>
+                    Functions defined in a .h file should be quite brief (just a
+                    handful of lines), and there should not be many of them. If
+                    you create a struct and then find yourself wanting to write
+                    more or longer functions, consider changing that struct to a
+                    class instead.
+                </td>
+            </tr>
+            <tr style="height: 76.5pt" height="102">
+                <td class="xl65" style="height: 76.5pt; border-top: none; width: 76pt" width="101" height="102">
+                    Makefile, grading,
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Do we NEED a makefile for our submission to get credit?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    In short, yes. <br>
+                    <br>
+                    It is a required file as part of your submission, so you
+                    should get it to work and make sure that your program
+                    compiles fully with no errors or warnings using your
+                    Makefile. You can refer to any of the labs that use
+                    Makefiles, as some of them have very detailed descriptions
+                    of what is going on at every step in the file!
+                    <br>
+                    <br>
+                    Additionally, in testing, we will be using your Makefile to
+                    compile your submission for testing! So you do want to be
+                    sure you get it to work if you want to pass the autograder
+                    section!
+                </td>
+            </tr>
+            <tr style="height: 28.5pt" height="38">
+                <td class="xl65" style="height: 28.5pt; border-top: none; width: 76pt" width="101" height="38">
+                    IO, exception, abstraction
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    I saw in the IO handout, open file (exit if fail) seems all
+                    handled in main, should we always do those in main? Or can
+                    the class we're calling handle it?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Think about who the client is and what you can do to
+                    maintain abstraction barriers. Is the client concerned with
+                    I/O? What is the client specifying and what do you have
+                    that's hidden from them.
+                </td>
+            </tr>
+            <tr style="height: 39pt" height="52">
+                <td class="xl70" style="height: 39pt; border-top: none; width: 76pt" width="101" height="52">
+                    diff
+                </td>
+                <td class="xl72" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    diff<br>
+                    Are there any readings on diff that could be useful for me?
+                </td>
+                <td class="xl77" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Try the following command: <br>
+                    <div class="terminal">man diff</div>
+                    Will print to stdout the manual page for the diff utility.
+                    Otherwise, just google, "how to use diff linux"
+                </td>
+            </tr>
+            <tr style="height: 63.75pt" height="85">
+                <td class="xl65" style="height: 63.75pt; border-top: none; width: 76pt" width="101" height="85">
+                    Cout, streams, &lt;&lt;
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    I have some questions about cout, with some general
+                    confusion. Can you help me out?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Many students think that cout is a command, a verb that
+                    tells the computer to do something. It is not.
+                    <span class="important">&lt;&lt; </span> is the verb that
+                    tells the computer to send the stuff on the right to the
+                    place on the left.
+                    <span class="important">
+                        cout is place you can &lt;&lt; ("send",
+                        "print") things.</span>
+                    If you have another place, like myOutputFileStream, then you
+                    can send stuff there by writing
+                    <div class="code">
+                        myOutputFileStream &lt;&lt; stuff_to_print;<br>
+                    </div>
+                    cout is not special syntax: it's just a pre-defined global
+                    variable that contains an instance of an output stream
+                    class, and that instance is normally tied to the console.
+                    The &lt;&lt; operator will work with ANY output stream!<br><br>
+                    There are several kinds of output stream. cout is an
+                    ostream. If you open a file, it will be an ofstream (output
+                    file stream). But a function that takes an ostream can also
+                    accept an ofstream.<br><br>
+                    Last note: always pass stream objects by reference (or by
+                    pointer, but reference is the C++ way).<br><br>
+                    A great resource is the comp 15 reference on streams. Link
+                    is here:
+                    <a href="https://www.cs.tufts.edu/comp/15-2021s/reference/reference/ioHandout/fileInteraction.pdf">
+                        File Input/Output</a>
+                </td>
+            </tr>
+            <tr style="height: 42.75pt" height="57">
+                <td class="xl65" style="height: 42.75pt; border-top: none; width: 76pt" width="101" height="57">
+                    Big three, data structures,
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Do we have to build the Big Three for our data structures
+                    for this homework?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Follow the instructions in the assignment: you only have to
+                    define them if they are necessary for your class
+                    implementation. Since you are designing the class, we cannot
+                    say definitively whether they are required.
+                </td>
+            </tr>
+            <tr style="height: 42.75pt" height="57">
+                <td class="xl65" style="height: 42.75pt; border-top: none; width: 76pt" width="101" height="57">
+                    File, open file, close file, open, close
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Is it bad form to open a file and have it open for a long
+                    time before closing or should we try to open a file right
+                    before we need it and close after we are done with it?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    There is nothing wrong with keeping the file open for the
+                    duration of your program's runtime. Just make sure every
+                    file gets closed when your class/program goes out of
+                    scope/ends.
+                </td>
+            </tr>
+            <tr style="height: 38.25pt" height="51">
+                <td class="xl65" style="height: 38.25pt; border-top: none; width: 76pt" width="101" height="51">
+                    Big 3
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Do I need the Big 3 for this assignment?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    If your data members are all either simple things like
+                    integers that can be shallow copied or instances of classes
+                    that have all three, like the STL classes, then you won't
+                    need to implement them. Otherwise, yes!<br>
+                    <br>
+                    A good tip, is that if there are any pointers in your class,
+                    then yes, you need the big 3.
+                </td>
+            </tr>
+            <tr style="height: 38.25pt" height="51">
+                <td class="xl65" style="height: 38.25pt; border-top: none; width: 76pt" width="101" height="51">
+                    Class, spec, name
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Does the name of my class need to match that in the spec?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Yes, the TAs grading will want the same name for
+                    consistency, or the autograder will require the same class
+                    name.<br>
+
+                    More generally, when we name a class, the purpose of the
+                    class should be at least somewhat evident from its name.
+                </td>
+            </tr>
+            <tr style="height: 37.5pt" height="50">
+                <td class="xl65" style="height: 37.5pt; border-top: none; width: 76pt" width="101" height="50">
+                    Main, length, style
+                </td>
+                <td class="xl72" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    main length<br>
+                    Is there a limit on how long our main functions should be?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    According to our course coding standard and the style guide,
+                    all functions should be less than 30 lines in length. This
+                    includes the main function. We love to see a very short,
+                    modular main() in which you solely call other functions.
+                </td>
+            </tr>
+            <tr style="height: 42.75pt" height="57">
+                <td class="xl65" style="height: 42.75pt; border-top: none; width: 76pt" width="101" height="57">
+                    Output, IO, stream, open, close, file
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    When you output to a file, is there a way to open the file
+                    and output to it bit by bit (adding to what was already
+                    there) instead of all at once? Every time I output to a
+                    file, I appear to output over what was previously there.
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Don't reopen the file everytime you output to it. Output
+                    data to the same ofstream. That'll automatically append data
+                    to the file.
+                </td>
+            </tr>
+            <tr style="height: 56.25pt" height="75">
+                <td class="xl65" style="height: 56.25pt; border-top: none; width: 76pt" width="101" height="75">
+                    Style, testing, lines, 30 line, length
+                </td>
+                <td class="xl78" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Style for testing files<br>
+                    Do the testing files have to adhere to the style guidelines,
+                    specifically the 30 line rule?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    yes<br>
+                    It's especially important for testing code to have good
+                    style, so that it's easy to understand what's being tested.
+
+                    <br><br>
+                    One single exception, is a function whose purpose is only to
+                    call other functions. If your testing main calls 40 private
+                    test functions, then that is an acceptable length.
+
+                    <br><br>
+                    Make sure to follow the spec specific guidelines: There may
+                    be special instructions using the testing framework for a
+                    particular assignment.
+                </td>
+            </tr>
+            <tr style="height: 39pt" height="52">
+                <td class="xl65" style="height: 39pt; border-top: none; width: 76pt" width="101" height="52">
+                    Endl, style, \n
+                </td>
+                <td class="xl78" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    std:: endl and "\n"<br>
+                    is using both bad style?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    its fine.<br>
+                    If you asked someone with a lot of C++ experience, they'd
+                    probably tell you to prefer \n for performance reasons.
+                    <br>
+                    But nothing you do in Comp15 is so high-performance that
+                    you'd notice any difference.
+                </td>
+            </tr>
+            <tr style="height: 112.5pt" height="150">
+                <td class="xl65" style="height: 112.5pt; border-top: none; width: 76pt" width="101" height="150">
+                    ssh, VSCode
+                </td>
+                <td class="xl78" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Can't connect to SSH<br>
+                    My SSH connection worked perfectly for the labs and
+                    homeworks, but today it won't connect. I've tried several
+                    times and it doesn't give any error message, it just says it
+                    can't connect.<br>
+                    I use VSCode. I checked VSCode and my computer for updates
+                    but neither needed them. Has anyone had this happen and
+                    fixed it?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Go to Command Palette
+                    <div class="important">(ctrl+shift+P)</div>
+                    and use Kill VS Code Server on Host, then reconnect.<br>
+                    <br>
+                    The other way is to do it manually.<br>
+                    <div class="terminal">
+                        for x in {00..09}; do ssh YOURUTLN@vm$x.cs.tufts.edu
+                        "pkill node; pkill Microsoft; done<br>
+                    </div>
+                    (there's 10 homework servers)
+                </td>
+            </tr>
+            <tr style="height: 57pt" height="76">
+                <td class="xl65" style="height: 57pt; border-top: none; width: 76pt" width="101" height="76">
+                    Grades, late work, bonus, extra credit, gradescope
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Does this class provide extra credit?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    there may be very small extra credit available for sections
+                    of an assignment, but overall no
+                </td>
+            </tr>
+            <tr style="height: 42.75pt" height="57">
+                <td class="xl65" style="height: 42.75pt; border-top: none; width: 76pt" width="101" height="57">
+                    Late token, grading, gradescope
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    I submitted using late tokens correctly, but its listed as
+                    late on gradescope. Is my assignment on time?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Since there is nothing there about when the infrastructure
+                    uploads things to GradeScope, timestamps on that site don't
+                    matter.<br>
+                    Times on the EECS servers, provide, tokens, and deans'
+                    authorizations cover everything we use, and even provide's
+                    "lateness penalties" don't matter: the syllabus
+                    lists everything we look at.
+                </td>
+            </tr>
+            <tr style="height: 85.5pt" height="114">
+                <td class="xl65" style="height: 85.5pt; border-top: none; width: 76pt" width="101" height="114">
+                    Specific to BST: Min, max, INT_MIN, INT_MAX
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Why would we return a number like infinity, or a large
+                    number (portrayed as INT_MAX), when looking for the minimum,
+                    if there is none? Aren't we looking for a minimum
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    When we are searching for a minimum that does not exist, we
+                    have a couple of options. We could throw an error. <br>
+                    <br>
+                    Another choice is to indicate we had there is no minimum, by
+                    returning INT_MAX. <br>
+                    <br>
+                    The client can easily check if the function (that returns an
+                    integer) is INT_MAX, which indicates that is the largest
+                    value possible, and finding the minimum failed because the
+                    data structure is empty.
+                </td>
+            </tr>
+            <tr style="height: 57pt" height="76">
+                <td class="xl65" style="height: 57pt; border-top: none; width: 76pt" width="101" height="76">
+                    30 line rule, style guide, function parameters
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Does the 30 line rule in the style guide apply to the
+                    function parameters?
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    The limit only applies to what is contained between the
+                    function's brace { " }, so if there are 30 lines or under
+                    between the braces, you are fine. However, if you are
+                    nearing 30 lines, it is a good sign that there is usually a
+                    good way to make the function smaller and modular using
+                    helper functions.
+                </td>
+            </tr>
+            <tr style="height: 57pt" height="76">
+                <td class="xl65" style="height: 57pt; border-top: none; width: 76pt" width="101" height="76">
+                    Linker error, compiler, undefined reference to
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Linker error - "undefined reference to ... "
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    You are calling a function as specified, but there isn't one
+                    available. It's possible your .cpp and .o files are out of
+                    sync (in which case the dependencies in the Makefile are
+                    incorrect). It's possible the link command doesn't include
+                    the .o file. It's possible the function specifications
+                    doesn't match --- it clearly matches a declaration, but the
+                    definition is missing.
+                </td>
+            </tr>
+            <tr style="height: 57pt" height="76">
+                <td class="xl65" style="height: 57pt; border-top: none; width: 76pt" width="101" height="76">
+                    Public function, helper function,
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    I made a couple public helper functions for testing
+                    purposes, but we're not allowed to add public functions and
+                    I was told to make sure my tests weren't commented out when
+                    submitted. <br>
+                    Making the helper functions private or commenting them out
+                    will cause the tests that use them to crash.<br>
+                    What should I do with the helper functions - comment them
+                    out, make them private, or leave them public?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    You can make private functions public, but then make them
+                    private again before submitting.<br>
+                    Strong data abstractions are important, and putting extra
+                    stuff in the (public) interface makes things less abstract
+                    and less modular. In particular, we WILL link our test code
+                    against your implementation, and the test code will not
+                    build if you change the interface.<br>
+                    You may comment them out if the produce compiler warning
+                    when made private. In your write up of your testing, simply
+                    describe how a grader can duplicate your tests. It's ok to
+                    say "make functions that begin with 'test_' public and
+                    link with my testing code in testBST.cpp"<br>
+                </td>
+            </tr>
+            <tr style="height: 76.5pt" height="102">
+                <td class="xl65" style="height: 76.5pt; border-top: none; width: 76pt" width="101" height="102">
+                    Submit, testing, tests, programs,
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    How do I submit my multiple test programs?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    As the assignment (may) says: you should make one or more
+                    separate testing programs (so you can use (filename).cpp to
+                    compare your output with the reference).<br>
+                    In order to submit those, you will need to add those file
+                    names to the provide command. If you are using make provide,
+                    then you will need to add your testing file names to the
+                    provide command in the Makefile.<br>
+                    Recall that the provide command's usage is:<br>
+                    provide course assignment file1 ...<br>
+                    For us, the course is comp15, assignment is hw4, and then
+                    you list all the files you want provide to copy over for the
+                    grader.<br>
+                    You can use man provide to learn all about it. Provide is
+                    not a general Unix program, but a program written by our own
+                    Prof. Alva Couch.
+                </td>
+            </tr>
+            <tr style="height: 42.75pt" height="57">
+                <td class="xl65" style="height: 42.75pt; border-top: none; width: 76pt" width="101" height="57">
+                    Helper function, recursive
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    The assignment asks for a function to be implemented
+                    recursively. My function calls a recursive helper function,
+                    but the exact function with the exact parameters specified
+                    in the spec does not. Is this okay?
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Yes, your functions can use a recursive helper function,
+                    rather than being recursive themselves. Often, the
+                    parameters in the public functions do not work well for
+                    recursion. <br>
+                    <br>
+                    Make sure to read the spec for your specific assignment,
+                    because there should be more details for this requirement.
+                </td>
+            </tr>
+            <tr style="height: 57pt" height="76">
+                <td class="xl65" style="height: 57pt; border-top: none; width: 76pt" width="101" height="76">
+                    Testing, file, file name, makefile, provide
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    I used a different file, testing.cpp, as my testing main
+                    with my testing functions. Can I change the provide command
+                    in the makefile to include that file for submission or
+                    should we only be submitting (files listed on the spec) ?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    As always, we want you to turn in your testing code. Since
+                    we didn't give you fixed file names, we cannot pre-write the
+                    provide command.<br>
+                    Please turn in your testing files by adding them to the
+                    provide command.
+                </td>
+            </tr>
+            <tr style="height: 115.5pt" height="154">
+                <td class="xl65" style="height: 115.5pt; border-top: none; width: 76pt" width="101" height="154">
+                    Debugging, commenting, style
+                </td>
+                <td class="xl72" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Debugging statements in functions.<br>
+                    In some functions, I included print statements in them to
+                    debug while working on them. Should I leave them in
+                    (commented out) when submitting to demonstrate the debugging
+                    process or just get rid of them?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    "Commented-out code should not be submitted! It's great to
+                    test out multiple potential solutions to a problem, but by
+                    the time you submit, you should have chosen the code that
+                    works the best and deleted anything you decided not to use.
+                    The occasional exception to this rule is unit testing code
+                    that is meant to crash your program." - Style guide<br>
+                    <br>
+                    <br>
+                    We are interested in your solution and how you (purposely)
+                    tested your solution. We don't expect to see everything you
+                    did to debug. Testing and debugging can be intertwined, of
+                    course, but our main interest in this regard is how you
+                    checked that things worked, and not so much all that
+                    happened when things didn't work.<br><br>
+                    If you put print statements in as part of you testing
+                    strategy, and they aren't too distracting, you can leave
+                    them commented out and describe the strategy in your README
+                    (and explain their presence). But, even then, I would
+                    probably delete them and just say you put print statements
+                    in functions to ensure (whatever you want to test) But they
+                    should part of a coherent testing strategy, not just normal
+                    debugging.<br><br>
+                    We mostly want your algorithm to stand out clearly in the
+                    implementation, and lots of extraneous debug statements can
+                    be distracting.
+                </td>
+            </tr>
+            <tr style="height: 76.5pt" height="102">
+                <td class="xl65" style="height: 76.5pt; border-top: none; width: 76pt" width="101" height="102">
+                    File headers, purpose,
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Should we modify the file headers for the provided files to
+                    match update with our names, date and purpose?<br>
+                    <br>
+                    Should we use the provided file purpose? <br>
+                    <br>
+                    Should we also write function contracts for every function?
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Yes, you need to modify the file headers.<br>
+                    <br>
+                    You can modify the purpose of the file provided, to match
+                    your needs.<br>
+                    <br>
+                    Ask on piazza if you need to write function contracts for
+                    PROVIDED functions (functions given in the starter code),
+                    but you need to write for every function you write.
+                </td>
+            </tr>
+            <tr style="height: 25.5pt" height="34">
+                <td class="xl70" style="height: 25.5pt; border-top: none; width: 76pt" width="101" height="34">
+                    Assignment is temporarily disabled! please try again later!
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    I am trying to submit hw4, but when I do the make provide
+                    command I get the message "assignment hw4 is
+                    temporarily disabled! please try again later!" Im not
+                    really sure what's wrong.
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    The provide command is not ready yet. Typically, the provide
+                    command is opened a few days before the due date. Check or
+                    ask on Piazza to confirm that provide is not working yet!
+                </td>
+            </tr>
+            <tr style="height: 102.75pt" height="137">
+                <td class="xl65" style="height: 102.75pt; border-top: none; width: 76pt" width="101" height="137">
+                    Testing, submission
+                </td>
+                <td class="xl72" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Is there some other way besides comparing to the reference
+                    and using the driver that we can/should do for testing? Can
+                    I make a new file that tests each function separately or is
+                    that not necessary for this assignment?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Of course you can, and you SHOULD make a separate test
+                    file.<br>
+                    We said you can't change the hw4 program, so that you can
+                    compare your implementation to ours.<br>
+                    <br>
+                    You will naturally want to test your implementation
+                    incrementally --- because you know by now it will save you a
+                    ton of time. <br>
+                    <br>
+                    We also asked you to show us your testing code, so you need
+                    to put it somewhere.<br>
+                    <br>
+                    Just as with previous assignments, you should write a test
+                    program as you describe.
+                </td>
+            </tr>
+            <tr style="height: 112.5pt" height="150">
+                <td class="xl65" style="height: 112.5pt; border-top: none; width: 76pt" width="101" height="150">
+                    Sococo
+                </td>
+                <td class="xl72" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Logged out of Sococo<br>
+                    Hello! When I click on the Sococo link given in Piazza
+                    instead of sending me directly to the page like it usually
+                    does it sends me to the login page. I tried to reset my
+                    password will all possible tufts emails and it sends me an
+                    email back that my email doesn't have an account. I was just
+                    wondering how do I get back into Sococo?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Go to the bottom of the page. Click on "more ways to
+                    log in" and click on "unified login." This
+                    will take you to a Tufts secure login page where you enter
+                    your ULTN and password and you should be in.
+                </td>
+            </tr>
+            <tr style="height: 42.75pt" height="57">
+                <td class="xl65" style="height: 42.75pt; border-top: none; width: 76pt" width="101" height="57">
+                    Design grade, gradescope, project, phase
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Hi! I went to a TA to talk about my design implementation
+                    for a project, but my grade in gradescope isn't there. When
+                    should I expect it to be up?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    You won't see the grade until we release all of them.
+                    <br><br>
+                    If you went, and you still recieve a zero, post privately on
+                    Piazza with the TA who helped you, so we can get your grade
+                    in.
+                </td>
+            </tr>
+            <tr style="height: 85.5pt" height="114">
+                <td class="xl65" style="height: 85.5pt; border-top: none; width: 76pt" width="101" height="114">
+                    Atom, remote sync
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    When I download files using atom remote sync, I cant see a
+                    particular file.
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Perhaps the file is a link, and atom may not copy links to
+                    your computer. The file is still in your halligan directory,
+                    it just does not get copied to your local computer.<br>
+                    <br>
+                    You can use
+                    <div class="terminal">cat &lt;filename&gt;</div>
+                    to view the file, or if you're familiar with any terminal
+                    text editors (emacs, vim, nano), you can use those.<br>
+                    <br>
+                    <br>
+                    There may be a trick to download to atom (not tested:: I
+                    think you can create a local file with the filename of the
+                    link you want to download, and remote-sync-pro download on
+                    that file, maybe?) so ask on Piazza.
+                </td>
+            </tr>
+            <tr style="height: 57pt" height="76">
+                <td class="xl65" style="height: 57pt; border-top: none; width: 76pt" width="101" height="76">
+                    Public, testing, unit testing, style, commenting
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Can I temporarily implement a public function as a means of
+                    testing? If so, do I comment it out so graders can see what
+                    tools i used to test?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Yes. They must be private or commented out when you submit
+                    your program, but do leave them visible and documented so we
+                    can assess our testing.
+                </td>
+            </tr>
+            <tr style="height: 76.5pt" height="102">
+                <td class="xl65" style="height: 76.5pt; border-top: none; width: 76pt" width="101" height="102">
+                    Makefile, main, compile
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    I am trying to write a makefile with two mains.<br>
+                    So I'm writing a test file for my (...) function in its own
+                    file, so it has it's own main function. Should these files
+                    be included in the makefile? I'm just wondering because it
+                    feels weird if the makefile has two main functions.
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Makefiles can have any number of targets. That's ok.<br>
+                    The first one is special, because if you type
+                    "make" it will build the first target. But it's
+                    quite common to have others.
+                    <div class="terminal">
+                        make testFunctionABC<br>
+                        make testFunction123<br>
+                        make<br>
+                    </div>
+                    are all fine things to type. As a rule, you should make the
+                    first rule build whatever the assignment asks for.
+                </td>
+            </tr>
+            <tr style="height: 51pt" height="68">
+                <td class="xl65" style="height: 51pt; border-top: none; width: 76pt" width="101" height="68">
+                    Cin, Reading, file
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Is there a way to see what the first character of a cin is
+                    before reading it in?<br>
+                    <br>
+                    For context, I'm trying to either getline() or read from the
+                    standard input stream (cin &gt;&gt;) depending on what the
+                    first char of input is without actually doing those actions.
+                </td>
+                <td class="xl79" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    <div class="code">std::cin::peek</div>
+                    check the c++ reference for more information... although you
+                    shouldn't need it for any assignment.
+                </td>
+            </tr>
+            <tr style="height: 165.75pt" height="221">
+                <td class="xl65" style="height: 165.75pt; border-top: none; width: 76pt" width="101" height="221">
+                    Quota, vscode, cache
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    VSCode server too large, cache large. What do I do to free
+                    up space on my student account?
+                </td>
+                <td class="xl74" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    I usually just delete the vscode folder and let it reinstall
+                    itself the next time I connect to halligan.
+                    <div class="terminal">rm -rf ~/.vscode-server</div>
+
+                    Check out this for more information on how to limit the
+                    space used by the VScode server<br>
+                    <a href="https://github.com/kedestin/Quick-References/blob/master/Development/vscode-remotessh.md#appendix-1-limiting-disk-usage-of-c-extension" target="_parent">
+                        <span style="color: #333333">
+                            https://github.com/microsoft/vscode/issues/22557
+                        </span></a>
+                    <br><br>Also,
+                    <div class="terminal">/comp/15/bin/free_space.sh</div>
+                    will remove browser caches
+                </td>
+            </tr>
+            <tr style="height: 189pt" height="252">
+                <td class="xl65" style="height: 189pt; border-top: none; width: 76pt" width="101" height="252">
+                    Function, class, .h, .cpp, organize, #include, include
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    How do I use a function not included in a class, in another
+                    file?
+                </td>
+                <td class="xl80" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Review: How to organize programs with separate components<br>
+                    It is important to know that C++ allows functions to be in a
+                    class or not. main, for example, is never in a class, and
+                    the functions you write for the first part of Comp 11 are
+                    all outside of any class.<br>
+                    This is true for separate program components (called
+                    modules), too. To make a separate program module you:<br>
+                    Make a .h file with declarations necessary to use the
+                    module. The .h file can contain class definition(s) and/or
+                    function headers for top-level functions.<br>
+                    <br>
+                    Put the definitions of the functions in a .cpp file. If they
+                    are in a class, then you put ClassName:: in front of them,
+                    if not, then you don't put anything in front of the function
+                    names.<br>
+                    <br>
+                    #include the .h file in the implementation .cpp file AND in
+                    any client files. Never #include .cpp files!<br>
+                    <br>
+                    Compile all .cpp files to .o files<br>
+                    <br>
+                    Link together the .o files necessary for any particular
+                    program
+                </td>
+            </tr>
+            <tr style="height: 127.5pt" height="170">
+                <td class="xl65" style="height: 127.5pt; border-top: none; width: 76pt" width="101" height="170">
+                    If, style
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Can I do nothing inside of an if statement? <br>
+                    <br>
+                    Example : if (condition) {} else { ... }
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    <div class="code">
+                        if (test) {<br>
+                        // do nothing<br>
+                        } else {<br>
+                        // do something<br>
+                        }<br>
+                    </div>
+                    is equivalent to -------<br>
+
+                    <div class="code">
+                        if (not test) {<br>
+                        // do something<br>
+                        }<br>
+                    </div>
+                    The latter is preferred.
+
+                    <br><br>
+                    However, the most important thing is readability. If
+                    something is more readable, or if saying "not test" doesn't
+                    really make sense, then you can use the style that makes the
+                    most sense.
+                </td>
+            </tr>
+            <tr style="height: 63.75pt" height="85">
+                <td class="xl65" style="height: 63.75pt; border-top: none; width: 76pt" width="101" height="85">
+                    Redirect, stream, stderr, stdout, cerr, cout,
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Is there a way to redirect the output of the standard error
+                    stream into a file, similar to how you redirect the standard
+                    output streaming using command_to_run &gt; file_name ?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Yes. First, this is the reason that cerr and cout are
+                    different streams --- so that you can separate error
+                    messages from normal programming output automatically!<br>
+                    You can send both cout and cerr to the same file in the tcsh
+                    (the shell that student accounts get by default) like this:
+                    <div class="terminal">
+                        command_you_want_to_run &gt;&amp;
+                        cout+cerr_output_file<br>
+                        &amp;
+                    </div>
+                    is like &gt; except that it grabs both cout and cerr.<br>
+                    Redirecting just cerr is actually strangely difficult in
+                    tcsh, so post on piazza if you need help with that.
+                </td>
+            </tr>
+            <tr style="height: 114.75pt" height="153">
+                <td class="xl65" style="height: 114.75pt; border-top: none; width: 76pt" width="101" height="153">
+                    Helper function, private, .h, static
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    My helper function does not need access to class components,
+                    and is only used in one file. Should I include the function
+                    in the .h for the class?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Because they are not something for the client nor something
+                    C++ needs for the class, they should not go in the .h
+                    file.<br>
+                    <br>
+                    You can make functions like this static (defined in the .cpp
+                    file). A static function is a function that is exactly as
+                    you described. You can do
+                    <div class="code">
+                        static bool got_int(string s, int *resultp) {<br>
+                        char extra;<br>
+                        return sscanf(s.c_str(), " %d %c", resultp,
+                        &amp;extra) == 1;
+                        <br>}
+                    </div>
+                    <br>
+                    Make sure to define the static functions BEFORE you define
+                    the functions that call them.
+                </td>
+            </tr>
+            <tr style="height: 51pt" height="68">
+                <td class="xl65" style="height: 51pt; border-top: none; width: 76pt" width="101" height="68">
+                    Std::_bad_alloc, memory
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    What is the std::bad_alloc exception message?
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Bad alloc is what happens when std::new can't allocate any
+                    new memory<br>
+                    an educated guess: you're infinite looping somewhere in your
+                    run function, allocating memory somehow (making a string?,
+                    pushing something onto the stack? etc), and eventually run
+                    out of memory.<br>
+                    <br>
+                    No assignment in comp15 needs more memory than default, so
+                    try to see where you are allocating with the keyword "new".
+                </td>
+            </tr>
+            <tr style="height: 89.25pt" height="119">
+                <td class="xl65" style="height: 89.25pt; border-top: none; width: 76pt" width="101" height="119">
+                    Tab, style
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Is there an easy way to find tab characters in my files?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    <div class="terminal">/comp/15/bin/has_tabs filename</div>
+                    will tell you whether there are any tabs in the file at all,
+                    but not where they are.<br>
+                    <br>
+                    <div class="terminal">grep -P '\t' filename</div>
+                    will print the whole line(s) out whenever there is a tab<br>
+                    <br>
+                    You can also change your tab setting in your editor and see
+                    what moves.
+                </td>
+            </tr>
+            <tr style="height: 14.25pt" height="19">
+                <td class="xl65" style="height: 14.25pt; border-top: none; width: 76pt" width="101" height="19">
+                    Piazza
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    I have a question for Piazza. Should I post it as public to
+                    all students, or private to instructors?
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Please make generic questions public. That way, other
+                    students can read the answers.
+                </td>
+            </tr>
+            <tr style="height: 71.25pt" height="95">
+                <td class="xl65" style="height: 71.25pt; border-top: none; width: 76pt" width="101" height="95">
+                    Line length, 80 characters, style
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    I have over 80 characters on some of my lines. How can I
+                    find what files and what lines are over 80 character long.
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    The grep Unix command is pretty useful:<br>
+                    <div class="terminal">
+                        grep -n ".\{79\}" &lt;filename&gt; <br>
+                    </div>
+                    This will print the lines that have lines over 79 characters
+                    the -n flag also tells you what line number they"re at.
+                </td>
+            </tr>
+            <tr style="height: 45pt" height="60">
+                <td class="xl75" style="height: 45pt; border-top: none; width: 76pt" width="101" height="60">
+                    DFS, depth first search, graph
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Why would DFS produce more than one valid path?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Any correct path is valid. The difference in output is
+                    caused by a difference in vertex order; either your
+                    implementation populates vertices in a different order than
+                    the reference, or your dfs algorithm explores neighboring
+                    vertices in a different order than the reference.
+                </td>
+            </tr>
+            <tr style="height: 216.75pt" height="289">
+                <td class="xl75" style="height: 216.75pt; border-top: none; width: 76pt" width="101" height="289">
+                    Vector, compiler warning, int, size_t, unsigned int, size()
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Why can't I compare the size of a vector with a normal int?
+                    I get a warning that comes up saying I have a comparison of
+                    different integers of different signs in my for loop.
+                    <br><br>I tried to google it, and I found I can't just
+                    compare a vector size to a normal integer (int i = 0 for
+                    example). Why is this? <br><br>I think I have to use
+                    size_t somewhere, but I don't really understand why/how I'm
+                    doing that.
+                </td>
+                <td class="xl81" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    tldr; Since negative numbers aren't useful for indexing into
+                    arrays, unsigned int values are used to index into an
+                    array.<br>
+                    -----------<br>
+                    The
+                    <div class="code">size()</div>
+                    function of a vector returns a
+                    <span class="important">size_t value.</span> <br>
+                    <div class="code">std::size_t</div>
+                    is a type used for expressing the sizes of things.<br>
+                    <br>
+                    A key feature of sizes is that, while they are integers,
+                    they cannot be negative, so a size_t is an unsigned integer
+                    of some kind ("unsigned" in C++ means values will
+                    always be &gt;= 0). C++ is warning you about comparing
+                    signed and unsigned values, because it's usually a case
+                    where the programmer messed up, and strange things can
+                    happen. For example,
+                    <div class="code">
+                        for (size_t i = 10; i &gt;= 0; --i)<br>
+                        cout &lt;&lt; "i is " &lt;&lt; i &lt;&lt;
+                        endl;
+                    </div>
+                    is an infinite loop, because i can never be negative!<br>
+                    <br><br>
+                    Moral: Always use unsigned integers, and specifically
+                    size_t's for iterating over collections.<br>
+                    <br><br>
+                    If you want some more (a little Comp 40 preview!):<br>
+                    An int in C++ on our system is 4 bytes. There are 32 bits in
+                    4 bytes, which can encode 4,294,967,296 distinct values.
+                    Integers may be positive or negative, so some of the values
+                    will be for negative values and others for positive values
+                    (and 0). One bit can be used as the sign. Thus, an integer
+                    may be any value in the range:<br>
+                    -2,147,483,648 through 2,148,483,647<br>
+                    That's −2^31 through 2^31 −1 (0 takes up one of
+                    the non-negative values)<br>
+                    <br><br>
+                    In C++, negative numbers cannot be used to index into an
+                    array. Consequently, using a standard signed integer is
+                    inefficient; it cannot use half of its domain. An unsigned
+                    integer uses all 32 bits to represent a number (and can
+                    therefore only represent positive numbers). An unsigned long
+                    integer can use 64 bits! The number of bits in a size_t is
+                    implementation dependent, but if you use variables of type
+                    size_t, then you be sure you'll be able to represent the
+                    size (and index where appropriate) of any C++ collection.
+                </td>
+            </tr>
+            <tr style="height: 216.75pt" height="289">
+                <td class="xl75" style="height: 216.75pt; border-top: none; width: 76pt" width="101" height="289">
+                    getline, IO, file, reading, &gt;&gt;,
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    I'm having trouble using getline vs. &gt;&gt; Any tips?
+                </td>
+                <td class="xl74" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    I encourage students to look up things they are using. This
+                    is a key professional skill. For example, good getline
+                    documentation can be had here: <br><br>
+                    http://www.cplusplus.com/reference/string/string/getline/<br><br>
+                    getline reads a line of text into a single string. That line
+                    ends at the next '\n' or at the end of file, whichever comes
+                    first, and '\n' is not included in the string (if it was
+                    there at all). Here is exactly what it says:<br>
+                    Extracts characters from is and stores them into str until
+                    the delimitation character delim is found (or the newline
+                    character, '\n', for (2)).<br>
+                    <br>
+                    The extraction also stops if the end of file is reached in
+                    is or if some other error occurs during the input
+                    operation.<br>
+                    <br>
+                    If the delimiter is found, it is extracted and discarded
+                    (i.e. it is not stored and the next input operation will
+                    begin after it).<br>
+                    <br>
+                    Note that any content in str before the call is replaced by
+                    the newly extracted sequence.<br>
+                    <br>
+                    Each extracted character is appended to the string as if its
+                    member push_back was called.<br>
+                    &gt;&gt; on the other had extracts things from the stream
+                    based on the type of the variable designated to receive the
+                    variable. This one is trickier to look up, because sometimes
+                    it's in the stream class, sometimes it's in the target
+                    variable's class, and sometimes it's an external function.
+                    In the case of strings
+                    (http://www.cplusplus.com/reference/string/string/), it's a
+                    non-member function overloaded by the string library
+                    (http://www.cplusplus.com/reference/string/string/operator%3E%3E/)<br>
+                    <br><br>
+                    Unfortunatly, the documentation appeals to operator&gt;&gt;
+                    on c-strings, to which it does not link, but the
+                    documentation covers you:<br>
+                    Notice that the istream extraction operations use
+                    whitespaces as separators; Therefore, this operation will
+                    only extract what can be considered a word from the stream.
+                    To extract entire lines of text, see the string overload of
+                    global function getline.<br>
+                    so, it stops at the next (whitespace) delimiter.
+                    <br>
+                    A line that contains "pony frog\n" will give back
+                    "pony" using &gt;&gt; but "pony frog"
+                    using getline.
+                </td>
+            </tr>
+            <tr style="height: 60pt" height="80">
+                <td class="xl75" style="height: 60pt; border-top: none; width: 76pt" width="101" height="80">
+                    Logistics<br>
+                    Windows<br>
+                    Atom<br>
+                    carriage
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Text editor/line ending errors<br>
+                    (A common problem if you can't figure out why tests you made
+                    aren't working.)
+                </td>
+                <td class="xl75" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Unix (including MacOS) and Linux use 1 character, LF to
+                    signal an end of line; Windows machines use the 2-character
+                    sequence CRLF ("\r\n") for end of line.<br>
+                    If you have a text file already saved in Windows format, you
+                    can run the dos2unix program on the server (type "man
+                    dos2unix" to see how to use it).<br>
+                    <br>
+                    In Atom, You can ctrl+shift+p and enter "line
+                    endings" to convert and also change the atom config to
+                    apply the change to all files.
+                </td>
+            </tr>
+            <tr style="height: 45pt" height="60">
+                <td class="xl75" style="height: 45pt; border-top: none; width: 76pt" width="101" height="60">
+                    Late tokens, homework, submissions
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    How do I see how many tokens I have left?
+                </td>
+                <td class="xl67" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    Type
+                    <div class="terminal">use comp15</div>
+                    and then
+                    <div class="terminal">prolog hw4</div>
+                    (Or whatever the last assignment was). This will show you
+                    the logging of your last submission, and in this is a
+                    summary of your past token usage.
+                </td>
+            </tr>
+            <tr style="height: 195pt" height="260">
+                <td class="xl75" style="height: 195pt; border-top: none; width: 76pt" width="101" height="260">
+                    Time complexity, Dijkstra's algorithm, graphs
+                </td>
+                <td class="xl65" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Dijkstra time complexity?
+                </td>
+                <td class="xl75" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    It is true that that in a graph with V vertices and E edges,
+                    E∈O(V2), but not every edge is used. In a connected
+                    graph, every vertex is visited exactly once by Dijkstra's
+                    algorithm. This means the number of edges actually traversed
+                    when running Dijkstra's algorithm is O(V).<br>
+                    <br>
+                    Over the course of the algorithm, V vertices are inserted
+                    into the min-heap (each insertion takes O(lgV) time), and
+                    there are E extractions from the min-heap (each extraction
+                    also takes O(lgV) time. Thus, the runtime of the algorithm
+                    is O((V+E)lgV), which expands to Θ(VlgV+ElgV). Since at
+                    most V edges prompt an extraction, E∉O(V2)<br>
+                    Also, consider this: it is impossible for every edge in a
+                    fully connected graph to result in a path to a given vertex
+                    that is shorter than every other previous path. If this were
+                    the case, that would imply that every path was the shortest
+                    path, which is never the case.<br>
+                    -------<br>
+                    Follow up Question: I still don't get it. If you have a DAG
+                    or just a directed graph the number of edges still converges
+                    to O(V^2)?<br>
+                    -------<br>
+                    If you have O(|V|^2) edges, then there is nothing you can
+                    do. As I said in the video, most graphs do not have that
+                    many edges: completely connected graphs are rare in
+                    practice, and sparse graphs are the norm, at least for many
+                    applications. <br>
+                    I think the example I used in the video was a road map where
+                    vertices are road intersections. There is no road from every
+                    intersection to every other intersection. In fact, a typical
+                    intersection will have &lt;= 4 neighbors. You can pretty
+                    much assume that an intersection will have some constant
+                    bounded number of intersections. I saw some estimates online
+                    that there are ~300,000 intersections with traffic signals
+                    in the US, but none of them have anything like 300,000 roads
+                    coming into them!<br>
+                    <br>
+                    So, the priority queue model does assume that you are not
+                    going to have O(|V|^2) edges --- in fact, must less, like
+                    O(|V|), is common.
+                </td>
+            </tr>
+
+            <tr style="height: 76.5pt" height="102">
+                <td class="xl75" style="height: 76.5pt; border-top: none; width: 76pt" width="101" height="102">
+                    Folder, halligan, deleted, back up, snapshot
+                </td>
+                <td class="xl75" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Just deleted everything in my comp15 folder - how do I get
+                    it back? It was backed up before that.
+                </td>
+                <td class="xl69" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    <div class="terminal">
+                        cd home<br>
+                        ls -la<br>
+                        cd .snapshot<br>
+                        ls<br>
+                        cd (enter the most recent snapshot)<br>
+                        cp -r (the files/folders you want back) ~/
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 409.5pt" height="546">
+                <td class="xl75" style="height: 409.5pt; border-top: none; width: 76pt" width="101" height="546">
+                    &amp;&amp;, &amp;, strict boolean operators, lazy
+                </td>
+                <td class="xl75" style="border-top: none; border-left: none; width: 482pt" width="642">
+                    Strict Boolen operators (and vs &amp;&amp; vs &amp;)
+                </td>
+                <td class="xl75" style="border-top: none; border-left: none; width: 1670pt" width="2227">
+                    <div class="important">
+                        (There are two replies for this one)
+                    </div>
+                    Zach and I were both answering this, and we had overlapping,
+                    but not identical, information in the explanation and gave
+                    the same suggestion :-)<br>
+                    -------<br>
+                    tl;dr Don't use the bitwise operator for boolean purposes.
+                    If you want to force evaluation, either <br>
+                    <br>●Assign the two items to variables and then put
+                    the variables in the boolean expression<br>
+
+                    <br>
+                    ●Make a function that does the and/or operation, which
+                    will force all arguments to be evaluated.<br>
+                    <br>
+
+                    Here is more:<br>
+                    The English/symbol operator name split is not related to
+                    when things are evaluated (strictness). <br>
+                    <br>
+                    We usually use the terms "strict" and
+                    "lazy" with regard to function arguments (though
+                    nearly all mainstream programming languages are strict).<br>
+                    <br>
+                    For boolean operators, the term we use is
+                    "short-circuit." A short-circuit operator produces
+                    result as soon as the answer is known, and does not evaluate
+                    the second operand when it isn't necessary. Thus,
+                    short-circuit operators are not just boolean operations, but
+                    are also control flow operators.<br>
+                    For example,
+                    <div class="code">
+                        orders_verified() and launch_missiles
+                    </div>
+                    won't launch missiles if orders have not been verified.
+                    Whew! You can think of logical and/or as being built from if
+                    statements (really conditional expressions).<br>
+                    The English names are just more readable names for the
+                    operators. For example, for each row, the operator name on
+                    the left is exactly equivalent to the symbol(s) on the
+                    right. The named version and the symbol version have exactly
+                    the same control flow properties.
+                    <br><br>
+                    <table>
+                        <tbody><tr>
+                            <th>Logical</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>and</td>
+                            <td>&amp;&amp;</td>
+                        </tr>
+                        <tr>
+                            <td>or</td>
+                            <td>||</td>
+                        </tr>
+                        <tr>
+                            <td>not</td>
+                            <td>!</td>
+                        </tr>
+                        <tr>
+                            <th>Bitwise</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>bitand</td>
+                            <td>&amp;</td>
+                        </tr>
+                        <tr>
+                            <td>bitor</td>
+                            <td>|</td>
+                        </tr>
+                        <tr>
+                            <td>compl</td>
+                            <td>~</td>
+                        </tr>
+                    </tbody></table>
+
+                    <br>
+                    The bitwise operators are not the same as the boolean
+                    operators. If you JUST have true boolean values, then they
+                    will work the same, BUT C++ inherits C's history of punning
+                    on booleans. That is, 0 is considered false and ANY integral
+                    non-zero value is considered true. There are functions that
+                    are used in a boolean context that will return non-zero true
+                    values that are not true (which is convertible with 1).<br><br>
+                    Suppose is_frob(a) returns a true value of 5, and is_frob(b)
+                    also returns a true value, but the integer is actually
+                    10.<br><br>
+                    Then, is_frob(a) and is_frob(b) which is the same as the
+                    old-fashioned is_frob(a) &amp;&amp; is_frob(b) will be true.
+                    But, is_frob(a) bitand is_frob(b) which is the same as
+                    is_frob(a) &amp; is_frob(b) will be 0, which is considered
+                    false.<br><br>
+                    This is why I adopted the policy in Comp 15 of using the
+                    English ones: it's very easy to type &amp; when you mean
+                    &amp;&amp; and not notice the difference, and it will often
+                    work. Except sometimes. And then the bug is very hard to
+                    figure out. You are not likely to type bitand when you mean
+                    and.<br><br>
+                    So, DO use the names rather than the symbols, because they
+                    are easier to read AND less likely to lead to mysterious
+                    bugs. DO use boolean operators when you are doing boolean
+                    operations, and use bitwise operators only for actual bit
+                    manipulations. This more clearly communicates your
+                    intentions to the reader. (If you use bitwise operators to
+                    enforce strictness, then you'll need a 2 or 3 line comment
+                    explaining why you're doing it, and even then, you've sent
+                    the reader down a little detour. You can assign values to
+                    variables and then put a brief comment that your forcing the
+                    evaluation of all boolean expressions --- but the fact that
+                    we're doing boolean manipulations is clear.<br><br>
+                    -Mark<br><br>
+                    -------<br><br>
+                    Generally, try to avoid writing (non-short-circuited)
+                    boolean expressions that rely on the evaluation order of
+                    each expression. The evaluation order for
+                    non-short-circuited boolean operations is not guaranteed, so
+                    the side effects you intend to induce may not behave as
+                    expected.<br><br>
+                    I would recommend you evaluate each expression and store the
+                    resulting boolean in a variable. This will guarantee the
+                    expressions are evaluated in the order you intend. Then,
+                    just compare the booleans using the standard and keyword.<br><br>
+                    Technically speaking, use of "&amp;" operator is
+                    appropriate for your case (but it still not preferred).
+                    Bjarne Stroustrup (the inventor of C++) really loved his
+                    ampersands; there are seven different use cases for the
+                    "&amp;" character in C++, each with distinct
+                    behaviors. This invariably leads to confounding errors when
+                    we try to debug code that looks perfect, but is sneakily
+                    interpreting our ampersands in a way other than we intended.
+                    The not, and, and or keywords are included in C++ for good
+                    reason; to avoid all this unnecessary confusion. Thus, we
+                    explicitly forbid the "&amp;&amp;" boolean
+                    operator in COMP 15. --Zach
+                </td>
+            </tr>
+        </tbody></table>
+        </div>
+
+        <div id="dogtag">
+            Mark A. Sheldon (<a href="mailto:msheldon@cs.tufts.edu">msheldon@cs.tufts.edu</a>)<br>
+
+            Last Modified 2021-Jan-15
+        </div>
+        <!-- dogtag -->
+        <script>
+            function searchKeywords() {
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById('search-bar');
+                filter = input.value.toUpperCase();
+                table = document.getElementById('faqTable');
+                tr = table.getElementsByTagName('tr');
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName('td')[0];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = '';
+                        } else {
+                            tr[i].style.display = 'none';
+                        }
+                    }
+                }
+            }
+
+
+            function clearSearches() {
+                search_bar1 = document.getElementById('search-all-bar');
+                search_bar2 = document.getElementById('search-bar');
+                search_bar1.value = '';
+                search_bar2.value = '';
+                table = document.getElementById('faqTable');
+                rows = table.getElementsByTagName('tr');
+                for (i = 0; i < rows.length; i++) {
+                    rows[i].style.display = '';
+                    console.log(i);
+                }
+            }
+        </script>
+
+
+
+</body><!--script taken from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_filter_table --></html>

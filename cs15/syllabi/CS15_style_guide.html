@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html data-lt-installed="true"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><link rel="shortcut icon" type="image/ico" href="https://www.cs.tufts.edu/comp/15/favicon.ico">
+  
+    <meta name="”viewport”" content="”width=device-width," initial-scale="1″">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="CS15_style_guide_files/bootstrap.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="CS15_style_guide_files/jquery-3.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="CS15_style_guide_files/popper.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="CS15_style_guide_files/bootstrap.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <style>
+        #rightBody a:visited, #rightBody a:link {
+            color: black;
+            text-decoration: none;
+        }
+        body {
+            font-size: 20px;
+            margin-left: 50px;
+            margin-right: 50px;
+            box-sizing: border-box;
+            font-family: helvetica, georgia, verdana, sans-serif;
+        }
+        ul#mainBody {
+            list-style-type: none;
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+        }
+        li#leftBody, li#rightBody {
+            float: left;
+            display: inline-block;
+        }
+        img {
+            position: fixed;
+            padding-left: 9%;
+        }
+        #mainBody {
+            width: 100%;
+            display: block;
+            box-sizing: border-box;
+        }
+        #leftBody {
+            width: 75%;
+            max-width:  34em;
+        }
+        #rightBody {
+            margin-top: 4%;
+            /* width: 25%;*/
+            position: fixed;
+            margin-bottom: 4%;
+        }
+        .rightBox {
+            border: 3px solid black;
+            text-align: center;
+            width: 60%;
+            margin-left: 20%;
+            padding: 30px 0px;
+            margin-bottom: 40px;
+            font-size: 22px;
+            font-family: 'Lucida Console', monospace;
+        }
+        .quote {
+            margin-right: 30%;
+            margin-left: 30%;
+            font-style: italic;
+        }
+        .author {
+            margin-right: 30%;
+            margin-left: 30%;
+            font-style: italic;
+        }
+        .par {
+            text-indent: 50px;
+        }
+        .section {
+            font-size: 24px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 50px;
+            margin-top: 50px;
+            font-family: 'Lucida Console', monospace;
+        }
+        .subsection {
+            font-size: 22px;
+            font-style: italic;
+            margin-bottom: 35px;
+            margin-top: 35px;
+            font-weight: bold;
+            font-family: 'Lucida Console', monospace;
+        }
+        .indent {
+            padding-left: 50px;
+        }
+        .ital {
+            font-style: italic;
+        }
+        .bol {
+            font-weight: bold;
+        }
+        .code {
+            font-family: 'Lucida Console', monospace;
+        }
+        #introBox {
+            background-color: lightblue;
+        }
+        #tocBox {
+            background-color: white;
+        }
+        #internalBox {
+            background-color: white;
+        }
+        #codeBox {
+            background-color: white;
+        }
+        #evaluateBox {
+            background-color: white;
+        }
+        h1 {
+            font-family: 'Lucida Console', monospace;
+            font-size: 30px;
+            background-color: lightblue;
+            width: 100%;
+            opacity: 0.9;
+            margin: 0;
+            width: auto;
+            text-align: center;
+        }
+        @media only screen and (max-width: 1200px){
+            ul, ol, li {
+                width: 100%;
+            }
+            .par {
+                width: 100%;
+            }
+            .quote {
+                margin-right: 15%;
+                margin-left: 15%;
+            }
+            .author {
+                margin-right: 15%;
+                margin-left: 15%;
+            }
+            #leftBody {
+                width: 100%;
+            }
+            #rightBody {
+                width: 0%;
+                visibility: hidden;
+            }
+        }
+        @media only screen and (max-width: 1540px) {
+            .rightBox {
+                padding: 20px 0px;
+            }
+        }
+        @media only screen and (max-width: 1370px) {
+            .rightBox {
+                padding: 15px 0px;
+            }
+        }
+        @media only screen and (max-height: 820px) {
+            .rightBox {
+                margin-bottom: 30px;
+            }
+        }
+        @media only screen and (max-height: 720px) {
+            .rightBox {
+                margin-bottom: 20px;            
+            }
+        }
+        @media only screen and (max-height: 680px) {
+            .rightBox {
+                padding: 10px 0px;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+    <script src="CS15_style_guide_files/jquery.js"></script>
+</head>
+<body>
+    <script>
+    $(document).on('scroll', function() {
+        if( $(this).scrollTop() >= $('#Introduction').position().top - 600 ){
+            updateMap("introBox");
+            clearMap("introBox");
+        }
+        if( $(this).scrollTop() >= $('#TOC').position().top - 300 ){
+            updateMap("tocBox");
+            clearMap("tocBox");
+        }
+        if( $(this).scrollTop() >= $('#InternalDocumentation').position().top - 200 ){
+            updateMap("internalBox");
+            clearMap("internalBox");
+        }
+        if( $(this).scrollTop() >= $('#CodeItself').position().top - 300 ){
+            updateMap("codeBox");
+            clearMap("codeBox");
+        }
+        if( $(this).scrollTop() >= $('#Evaluate').position().top - 600 ){
+            updateMap("evaluateBox");
+            clearMap("evaluateBox");
+        }
+    });
+    function updateMap(box) {
+        document.getElementById(box).style.background = "lightblue";
+    }
+    function clearMap(box) {
+        if (box != "introBox")
+            document.getElementById("introBox").style.background = "white";
+        if (box != "tocBox")
+            document.getElementById("tocBox").style.background = "white";
+        if (box != "internalBox")
+            document.getElementById("internalBox").style.background = "white";
+        if (box != "codeBox")
+            document.getElementById("codeBox").style.background = "white";
+        if (box != "evaluateBox")
+            document.getElementById("evaluateBox").style.background = "white";
+    }
+    </script>
+    <ul id="mainBody">
+    <li id="leftBody">
+      <h1 id="Introduction">Comp 15 Code Style Guide<br><br>
+        How to write clear, concise, and modular C++ for Comp 15</h1><br>
+    <div class="quote">"A computer language . . . is a novel formal
+    medium for expressing ideas about methodology, not just a way to
+    get a computer to perform operations. Programs are written for
+    people to read, and only incidentally for machines to
+    execute."</div><br>
+    <div class="author">-- Structure and Interpretation of Computer Programs 
+    Harold Abelson, Gerald J. Sussman, Julie Sussman</div><br><br>
+
+    <div class="par">A program is a written description of your
+    approach to solving a problem. It is a description that a computer
+    can execute, but human readers are the target audience for whom
+    you write. The compiler doesn't care about your variable names,
+    code formatting, or comments-- it chews on what's underneath.
+    People, on the other hand, rely on all those things, 
+    and you want them to understand and have confidence in your solution! 
+    Therefore, endeavor to write clear, concise, modular code.</div>
+    
+    <div class="par">All code you submit will be graded for structure
+    and organization (including readability) as well as for
+    functionality. Formatting matters. When you submit your work, it
+    should be beautiful, and there should be no question of your
+    dedication and correctness. Prepare it as if you were writing up
+    an example for a good textbook. You wouldn't use a book that had
+    no chapters, figures, captions, section headings, paragraph
+    breaks, etc. Similarly, no one wants to read unorganized,
+    undocumented code with huge functions and 500-character
+    lines.</div>
+    <div class="par">Just as with a paper for a literature course, the
+    first draft of a program that works is not usually the version to
+    submit. We allocate points of your homework/project grades for
+    code that meets the criteria for readability. For example, we
+    expect that you will clearly and consistently indent your code and
+    adhere to an 80 column limit. We will also grade your internal
+    documentation.</div>
+    <div class="par">This document contains requirements (and also hints) for
+    how to write programs that others, including the graders, will find easy to 
+    read. No document can be complete, and if you ever have questions about 
+    what is readable and what is not, please come see us!</div>
+    <div class="par">Furthermore, although some of these style
+    guidelines are specific to our course and others would not be
+    applicable to all programming languages, writing readable, concise
+    code is an extremely valuable skill that is important to practice
+    early in your CS career; it will benefit you forever. No matter for
+    whom you're writing your code, they will appreciate being able
+    to read it without difficulty.</div>
+    <div class="par">Finally, this style guide is written for Comp 15 students, 
+    and refers to key Comp 15 concepts. Therefore, it's important to 
+    continually refer back to this style guide as you progress through the 
+    course and gain a better understanding of the ideas that will contextualize
+    these guidelines. Check it before each homework, and you'll see your code-
+    writing skills (and grade) soar.</div>
+
+    <div class="section" id="TOC">Table of Contents</div>
+
+    <ul>
+        <li><a href="#InternalDocumentation">Internal Documentation</a>
+            <ul>
+                <li><a href="#FileHeaderComments">File Header Comments</a></li>
+                <li><a href="#FunctionContracts">Function Contracts</a></li>
+                <li><a href="#InlineComments">In-line Comments</a></li>
+                <li><a href="#README">The README</a></li>
+            </ul>
+        </li>
+        <li><a href="#CodeItself">The Code Itself</a>
+            <ul>
+                <li><a href="#Organization">Organization into Classes and 
+                                                    Structs</a></li>
+                <li><a href="#Recursion">Recursion</a></li>
+                <li><a href="#Variables">Variables</a></li>
+                <li><a href="#Brevity">Brevity</a></li>
+                <li><a href="#Whitespace">Whitespace</a></li>
+                <li><a href="#OtherGuidelines">Other Guidelines</a></li>
+            </ul>
+        </li>
+        <!-- <li><a href="#Evaluate">How We Evaluate</a></li> -->
+    </ul>
+
+    <div class="section" id="InternalDocumentation">Internal Documentation 
+    (Comments)</div>
+
+    <div class="par">Internal documentation comes mainly in the form
+    of comments, and is crucial to having easy-to-understand
+    code. Ideally, it would allow a reader with little to no prior
+    knowledge of C++ to understand the gist of what is happening in
+    your code, and why. For this reason, much of your internal
+    documentation will focus on the <span class="ital">whys</span> of
+    your program — how does a given section of code contribute
+    to the overall functionality of your program? This kind of
+    documentation is important to include at many levels, from the
+    README that describes your project as a whole, to the files that
+    make up your program, to the individual functions you write, and
+    even down to short but potentially confusing snippets of
+    code.</div><br>
+
+    <div>There are two options for when to comment your code:</div><br>
+
+    <ol>
+        <li>Before writing your code. Use comments (potentially combined with 
+        pseudo-code) to plan what you're going to write. As you write your 
+        code, update the comments to reflect changes in your plan.</li>
+        <li>As you write your code. Describe what you're doing in whatever 
+        piece of code you're currently writing. As your code becomes more 
+        complete, you can edit and potentially remove comments.</li>
+    </ol><br>
+
+    <div class="par">Writing your comments after finishing your code is 
+    not an option! If you show code to a member of the course staff, it is 
+    acceptable for them to say "I can't read this code without documentation. 
+    I'll help someone else while you work on that. Let me know when the 
+    documentation is complete."</div>
+    <div class="par">The most important part of commenting is that the 
+    comments and code are in-sync with each other. Regardless of when you 
+    choose to write your comments, give them a once-over before submitting
+    them to make sure that they still accurately represent your implementation.
+    We have pondered for hours why code seemed to be different from what the
+    comments said, only to conclude eventually that the code was 
+    <span class="ital">unintentionally</span> different 
+    from what the comments said. Then we had to find out which (if either!)
+    was correct for the problem. 
+    Confidence in the code goes down after this.</div>
+
+    <div class="subsection" id="FileHeaderComments">File Header Comments</div>
+
+    <div class="par">File header comments go at the top of each file.
+    They must include some straightforward but important information
+    — your name, the date, and the assignment title. When you
+    edit a provided file that already has an author's name in it, you
+    should add "Edited by" and then your name underneath the original
+    author's name.</div>
+    <div class="par">Another thing we look for in file headers is the purpose 
+    of the file. Most notably, this should <span class="ital">not</span> be 
+    something we can deduce from the file name!</div>
+    <div class="par">Header comments should also include any known bugs or 
+    "to do" items.  For example,  "Currently only supports sophomores.  
+    TODO:  support students of other years."</div>
+    <div class="par">For this course, you will often write your own classes, 
+    with one .h file and one .cpp file for each class. If your class were 
+    called "MyList," for example, then you would have a MyList.h and a 
+    MyList.cpp. One thing we often see when grading file header comments is, 
+    for example, MyList.h having the stated purpose 
+    "This is the header file for the MyList class." This is  not helpful! 
+    Because we are already in agreement on the file naming scheme used in 
+    our course, we already know before opening the file that it is a 
+    header file for a class named MyList.</div>
+    <div class="par">Instead, write thorough, detailed descriptions of 
+    your files that keep potential users of your code in mind.
+    Here are some things to consider that will help you write
+    informative file purposes comments:</div><br>
+
+    <ul>
+        <li>When a user opens your <span class="bol">driver file</span> (the file that contains <span class="code">main()</span>),
+ they are probably wondering: What does this program do as a whole? What
+ purpose does it serve? Is it a good fit for what I need to accomplish?</li>
+        <li>When a user opens a <span class="bol">header (.h) file</span>,
+ they probably have noticed that it is a class header and are wondering:
+ What is this class? What role does it play in the overall program? How 
+does it interact with the other classes? What needs are best met by this
+ class? They may be deciding whether to repurpose the class you wrote 
+for a completely different program or, conversely, whether to use the 
+rest of your program but replace that class with something else.</li>
+        <li>For each class, the comments should describe what instances of the class represent and what the <span class="ital">abstract state</span>
+ of an instance is.  For example: "StudentList is a class that 
+represents an ordered list of Student instances.  Every new StudentList 
+begins empty, and clients can then add and remove Students from the 
+list."  You may go on to define the main <span class="ital">behaviors</span>
+ (public functions) or you may document those functions as they are 
+declared, but the overall purpose/intended uses of the class should be 
+documented at the top. If there are limitations, document them: "This 
+class only handles lists of length 100 or less."</li>
+        <li>It is never the purpose of a class to "contain nodes." That 
+is an implementation detail that clients don't care about. 
+Implementation-specific information should go in the private section of 
+the class and/or in the implementation.cpp file.</li>
+        <li>When a user opens a <span class="bol">.cpp file</span> for a
+ class, it is probably because they have decided to use your class, 
+either in your program or a program of their own, and have run into some
+ confusion regarding how it works. They are probably wondering: What's 
+the best way to instantiate and then use this class? How do I accomplish
+ the purposes laid out in the header file? Is there some bug still in 
+this class I should know about? Is there some weird quirk or subtlety in
+ the way this class is meant to be used?</li>
+    </ul><br>
+
+    <div class="par">Keeping an imaginary user in mind will allow you to write 
+    helpful, non-obvious descriptions of your files, even for relatively 
+    straightforward programs and classes.</div>
+    <div class="par"><span class="bol">A Note:</span> 
+    This will be reiterated below in the section on README files, 
+    but it is important to remember here that code's purpose is 
+    <span class="ital">never</span> determined by its implementation details!
+    When deciding <span class="ital">whether</span> to use a program or class,
+    people care about whether it will accomplish their goals, not 
+    <span class="ital">how</span> it will accomplish those goals.</div>
+
+    <div class="subsection" id="FunctionContracts">Function Contracts</div>
+
+    <div class="par">Function contracts appear just before the function 
+    header and are meant to explain how the function fits into the larger 
+    program. They must include the function's purpose, any parameters, 
+    any return values, and any other information that might affect the rest
+    of the program. A function contract should not include 
+    implementation details, nor should it include information that can
+    be found in the function prototype.</div><br>
+
+    <ul>
+        <li>Purpose should say what the function
+        does, <span class="bol">not</span> how the function does
+        it. Often this takes the form of answering how does this
+        function fit into the larger program. It should not include
+        any implementation details.  E.&nbsp;g., a function's purpose
+        might be "To update the table so it maps the given key to the
+        given value.  The previous value associated with that key, if
+        any, is lost."</li>
+        <li>Parameters should include information about what they 
+represent in the function and larger program. This section should also 
+include any restrictions or expectations on what will be passed as a 
+parameter.
+            <ul>
+                <li>This section should not include information that can
+ be gleaned from the function prototype: saying "two ints and a string" 
+is unhelpful.</li>
+            </ul>
+        </li>
+        <li>Return value (if the function is non-void). "Return the
+        number of distinct items in the table" or "Return the first
+        item in the list greater than or equal to the given
+        value."</li>
+        <li>Other information: This section should include side
+        effects caused by the function. For example, in
+        removeFromBack(), a list would change size (decrease in size
+        by one). Input and output would be considered side effects,
+        too.  Other information in this section might be memory
+        management that occurs or needs to occur as a result of the
+        function running, any exit or failure conditions that would
+        cause the program to halt or the function to throw an
+        exception, or identified or suspected bugs within the function
+        ("this function does not work for __ reason" or
+        "I <span class="ital">think</span> this function is causing my
+        program to __").</li>
+    </ul><br>
+
+    <div class="subsection" id="InlineComments">In-line Comments</div>
+
+    <div>Include:</div><br>
+    <ul>
+        <li>Bugs. If you have identified a bug to a specific line of 
+your program, make a note. Graders are more understanding of documented 
+bugs versus bugs they have to suss out. At least, it shows you know it's
+ there. </li>
+        <li>Confusion. If there's an unclear or complicated section of 
+your code, something that would not be obvious to someone with 
+experience coding, explain it.</li>
+        <li>Cases. If you are writing the code to deal with a specific 
+case that's relevant to key invariants of the data structure, you should
+ identify the relevance of the invariant.</li>
+    </ul><br>
+    <div>Don't Include (in your submission):</div><br>
+    <ul>
+        <li>Questions: In-line comments asking questions about the code 
+or what should be done ("Do I need to increment this here?", "I don't 
+know if this works") are not helpful and should not be in submitted 
+code. Those kinds of questions can and should be addressed in office 
+hours.</li>
+        <li>Outdated TODOs: Comments that indicate things that need to 
+be written and/or fixed are useful while you are working, but the things
+ you TO-DID should not still say TODO. If a part of your implementation 
+is missing, a TODO comment is helpful as an acknowledgement.</li>
+    </ul><br>
+
+    <div class="par">Commented-out code should <span class="bol">
+        <span class="ital">not</span></span> be submitted! 
+        It's great to test out multiple potential solutions to a problem, 
+        but by the time you submit, you should have chosen the code that 
+        works the best and deleted anything you decided not to use. 
+        The occasional (but notable) exception to this rule is 
+        unit testing code that is meant to crash your program.</div>
+
+    <div class="subsection" id="README">The README</div>
+
+    <div class="par">A README is a file used to describe a program. 
+    Every open source project has a README file that describes what is 
+    going on in a program, what is necessary for it to work properly etc. 
+    In this course, it additionally will answer questions related to the 
+    topics/data structures covered in the assignment. 
+    The first thing someone opens when they look at a project is the README. 
+    When we are grading, that is the first file we open and the place 
+    we will go if we have questions or confusion about the code. 
+    It is crucial to fill it out thoroughly and in detail.</div><br>
+    <div>README files contain some straightforward, 
+    but important information:</div><br>
+
+    <ul>
+        <li>Your name, the date, the assignment title, and the course (Comp 15)</li>
+        <li>How to compile and run your program</li>
+        <li>Acknowledgements of any help you received — TAs you
+        sought help from in office hours, peers you vented about your
+        coding struggles with (without showing them your code, of
+        course!), snippets of code from lecture or the course website
+        you used as inspiration, online resources you found helpful
+        (including our class' forum), etc. Even if an assignment was
+        particularly easy for you and you didn't receive help from any
+        of these sources, this section should not be left blank. You
+        could instead list one obvious source of information, such as
+        the professor's lecture on a relevant topic.</li>
+        <li>Any bugs still in your program that you were unable to fix, and where they can be found in the code</li>
+        <li>Data structures section for you to describe the data structures used in the assignemnt</li>
+        <li>Sometimes the spec will include questions that should be 
+answered in your README. It's worth noting here that those tend to be a 
+significant portion of your grade.</li>
+        <li>Time spent section for you to note how many hours you spent on a particular assignemnt</li>
+    </ul><br>
+
+    <div>There are also parts of the README that are a little less straightforward:</div><br>
+
+    <ul>
+        <li>You should describe the purpose of your program. This can 
+and should be done in three sentences or less, but it's important to 
+think hard about what information would be useful to a potential user of
+ your program. Namely, <span class="ital">the implementation details of a program are irrelevant to its purpose.</span>
+ When I was deciding between Atom, VSCode, Vim, Emacs, and Sublime, I 
+considered the features of each editor and how effectively each one 
+suited my needs. I did not wonder about the underlying implementation 
+details of each editor at all.</li>
+        <li>You should describe each file you have submitted. Guidance 
+for describing source code files can be found above, in the section on 
+file headers. Other files you might submit, which will have simpler 
+descriptions, are the README (which can be described by just saying 
+"this file"), unit testing source code files, and sample inputs that you
+ used for testing. It's important to list <span class="ital">every</span>
+ file you submitted, even if the description is obvious! For example, if
+ one of your files is mistakenly left out of your submission, having it 
+listed in the README will help the TA understand what happened and 
+remedy that.</li>
+        <li>You should describe, chronologically and in detail, how you 
+tested and debugged your program as you were working on it. In this 
+course, you will be required to unit test <span class="ital">every</span>
+ program you write. Unit testing is necessarily something you do as you 
+write your code, so the full process is not always perfectly visible 
+from the final files you submit. This is your chance to convince the 
+grader that you thoughtfully and thoroughly tested your program as you 
+were writing it. Include, for example, information about how you 
+isolated and tested particularly tricky functions, and describe bugs you
+ found while unit testing and how you fixed those, or edge cases that 
+came up through your testing. If you tested as you wrote code and 
+documented your ideas throughout the assignment, this step should be 
+trivial.</li>
+        <li>Last but not least, seeing as this is a Data Structures 
+course, you should describe the data structures you used in your 
+program! <span class="ital"><span class="bol">This is your chance to explain the implementation details of your program.</span></span>
+ What data structures did you practice writing this week? How do they 
+work? What are their advantages and disadvantages? Similarly, if you 
+learned and practiced implementing a new algorithm, briefly explain how 
+it works. Write as if this section is meant to be read by somebody who 
+has only taken an introductory computer science course, but is really 
+interested in learning about the concepts from our course.</li>
+    </ul>
+
+    <div class="section" id="CodeItself">The Code Itself</div>
+
+    <div class="subsection" id="Organization">Organization into Classes and Structs (Data Structures!)</div>
+
+    <ul>
+        <li>If a struct is meant to be used in a class, it should be
+        defined inside of that class. If it is used internally to the
+        class, it should be private.  For example, a Node struct used
+        inside a linked list should be private.  If a struct needs to
+        be declared outside of any other class for whatever reason, it
+        should be declared in its own header file.</li>
+        <li>Non-interface functions in a class should be declared
+        private. The only functions that should be public are the ones
+          required for the client to be able to use the class. </li>
+        <li> All data members should be declared private.</li>
+    </ul>
+
+    <div class="subsection" id="Recursion">Recursion</div>
+
+    <ul>
+        <li>Recursive functions should only be concerned with the <span class="ital">current</span> element. Avoid dereferencing "<span class="code">next</span>" or children pointers in the function body; rather, just recurse to the next or child node.</li>
+    </ul>
+
+    <div class="subsection" id="Variables">Variables</div>
+
+    <ul>
+        <li><span class="bol">No global variables:</span> no variables
+        should be declared or defined outside of functions with the
+        exception of global constants.</li>
+        <li>Use of literals should be avoided; use global (or static)
+        constants instead. If your program calls for an 8x8
+        two-dimensional array, for example, create a global
+        constant <span class="code">ARRY_SIZE = 8</span>, then declare
+        your array with <span class="code">int[ARRY_SIZE][ARRY_SIZE]</span>
+        rather than <span class="code">int[8][8]</span>.</li>
+        <li>Variable names should be descriptive, with the exceptions
+        of variables with very limited scope: i and j for loops
+        (triple-nested loops should not
+        occur); <span class="code">curr_&lt;type&gt;</span>
+        (e.g. <span class="code">curr_node</span>) as a
+        pointer; <span class="code">temp</span>
+        or <span class="code">aux</span>
+        for <span class="ital">very</span> temporary variables
+        (accessed by 3 lines of code or fewer). One appropriate use
+        for <span class="code">temp</span> would be swapping two
+        elements in an array, for example. <span class="code">Foo,
+        var,</span> and <span class="code">x</span> are not
+        descriptive variable names and should never be used.</li>
+    </ul>
+
+    <div class="subsection" id="Brevity">Brevity</div>
+
+    <ul>
+        <li>Use boolean expressions and values. For example, there is no reason to write<br>
+            <span class="code"><span class="indent">if (isBig == true)</span></span><br>
+            <span>when you can write</span><br>
+            <span class="code"><span class="indent">if (isBig)</span></span>
+        </li>
+        <li>Don't write functions longer than 30 lines between the opening and closing brace. This will affect your modularity grade.</li>
+        <li>Do not rewrite code that is given to you, create functions 
+with nearly identical uses, or write in-place code when there is a 
+function you can call to do the same work.</li>
+        <li>Use helper functions to simplify code, especially if they 
+can be called in many places. But a helper function can also be useful 
+if it provides a name for a computation that makes other code clearer. 
+For example, rather than test<br>
+            <span class="code"><span class="indent">if (front == nullptr) </span></span><br>
+            <span>all the time, you can define a function called </span><br>
+            <span class="code"><span class="indent">if (isEmpty())</span></span>
+        </li>
+        <li>Try to avoid doing unnecessary work. For example, rather 
+than recomputing something several times, compute it once and save it in
+ a well-named variable.</li>
+    </ul>
+
+    <div class="subsection" id="Whitespace">Whitespace</div>
+
+    <ul>
+        <li>Indentations should be made up of either 4 or 8 spaces, not 
+tab characters (with the important exception of makefiles. If you don't 
+understand why a Makefile must contain tabs, ask a TA). Tabs display 
+differently based on a computer's settings, but spaces always look the 
+same. Most text editors have a setting to output a specified number of 
+spaces instead of a tab character whenever you press the "tab" key.</li>
+            <li class="doubleList">Furthermore, indentation should be 
+consistent! Indentation is a crucial part of code's readability, as it 
+helps readers understand how code fits together. Make sure the levels of
+ indentation accurately reflect which function or code block(s) any 
+given line is part of.</li>
+            <li class="doubleList"><span class="ital">In our course, the width of your indentation should be either 4 or 8 spaces.</span>
+ Indentation of only two spaces makes your code more difficult for us to
+ read. If this causes you to struggle to adhere to the 80 column rule, 
+then your code has too many levels of nesting, and needs to be more 
+concise, more modular, or both.</li>
+        <li>Binary operators (operators that take two pieces of input, such as '+', '*', '=', and '=='') should have spaces around them.</li>
+        <li>Unary operators (operators that take only one piece of input, such as '++'') should <span class="ital">not</span> have spaces around them.</li>
+
+        <li>When declaring pointers, the asterisk should be attached
+        to the variable name, <span class="ital">not</span> the type
+        (<span class="code">Node&nbsp;*curr</span> rather than
+          <span class="code" style="text-decoration: line-through;">Node*&nbsp;curr</span>).<br>
+          Rationale:  The compiler interprets the <span class="code">*</span> as a
+          decoration of the variable name on its right, not part of
+          the type:  <span class="code" style="text-decoration:
+          line-through;">Node*&nbsp;np1,&nbsp;np2;</span> declares one
+          pointer variable and one variable that contains a
+          <span class="code">Node</span>, which is confusing.
+          Putting the <span class="code">*</span> next to the
+          variable it modifies makes it clear to the reader which
+          variables, if any, hold pointer values:
+          <span class="code">Node&nbsp;*np1,&nbsp;np2;</span>.  
+          (<span class="code">np2</span> is poorly named, but its
+          status in the declaration is clear.)
+        </li>
+
+        <li>In lists declaring and initializing variables, there should be a space after every comma.</li>
+        <li>There should be a single space between a loop or conditional
+ keyword (such as for, if, and while) and its corresponding opening 
+parenthesis, but no space between the name of a function and its 
+corresponding opening parenthesis.</li>
+        <li>This should go without saying, but do not violate any of 
+these guidelines in order to make your code adhere to the 30 line or 80 
+column rules. This will make your code difficult for the grader to read,
+ and therefore will not help your score.</li>
+    </ul>
+
+    <div class="subsection" id="OtherGuidelines">Other Guidelines</div>
+
+    <ul>
+        <li>No line should be longer than 80 characters. In other words, no files that you wrote should have more than 80 columns. Typing "<span class="code">wc -L *</span>" into the terminal will display the number of columns in each file in your current folder.</li>
+        <li>There are some style rules that pertain to conditional statements and loops, as well. These determine the <span class="ital">control flow</span>
+ of your program, so having easy-to-read conditional statements and 
+loops is immensely important to a reader's ability to understand what is
+ happening in your code.</li>
+            <li class="doubleList">Use the keywords "<span class="code">and</span>," "<span class="code">or</span>," and "<span class="code">not</span>" as opposed to the equivalent operators "<span class="code">&amp;&amp;</span>," "<span class="code">||</span>," and "<span class="code">!</span>" so your code is both easier to read and less prone to difficult-to-spot bugs caused by typos. (Note: You should use "<span class="code">!=</span>"" when checking for inequality)</li>
+            <li class="doubleList">Don't treat non-boolean variables
+            as booleans — we know that when a number is 0 or
+            pointer is null, it will evaluate to false. For
+            readability, however, you should explicitly compare the
+            variable to zero.  For example,
+            write <span class="code">while (n &gt; 0)</span> rather
+            than <span class="code">while (n)</span>(Sorry, 
+            Python programmers.)</li>
+            <li class="doubleList">The <span class="code">break</span>
+            keyword should only be used when you have
+            a <span class="code">switch</span> statement. In addition
+            to making loops more difficult for a reader to understand,
+            it undermines one objective of our course, which is to
+            learn to write code (including loop conditions)
+            thoughtfully.</li>
+            <li class="doubleList">Returning from inside of a loop,
+            however, is often useful and
+            encouraged. The <span class="code">continue</span> keyword
+            may be used occasionally, but should be avoided when
+            possible.</li>
+        <li> Curly braces.  We are somewhat flexible on this, but be
+        consistent, but here are some notes:
+          <ul>
+            <li> If an open curly brace (<span class="code">{</span>) is placed at the end of a line of code,
+              there should be a space before it to separate it from
+              what came before.  It may also be placed on the next
+              line lined up under the beginning of the statement it's
+              part of.
+            </li><li> Close curly braces (<span class="code">}</span>)
+              should be on a line by themselves unless the statement
+              they are part of continues.  For example, you may write
+              "<span class="code">}&nbsp;else&nbsp;{</span>" all on
+              one line (or you can put each item on its own line).
+            </li><li> We do not require the use of curly braces for blocks
+              of a single statement.  That is, you may write
+              an <span class="code">if</span> statement or
+              a <span class="code">for</span> loop without any curly
+              braces if the body is one line long.  However, as a
+              rule, do not put an entire <span class="code">if</span> statement on one line.
+          </li></ul>
+        </li><li>The keyword <span class="code">auto</span>
+        should <span clas="ital">only</span> be used when declaring
+        variables of the <span class="code">iterator</span> type. This
+        is a Data Structures course — you're expected to develop
+        a very strong grasp of which class, struct, or primitive data
+        type you are working with at any given time.</li>
+        <li>When working with pointers, the
+        keyword <span class="code">nullptr</span> is preferable to the
+        old-fashioned, C-style
+        constant <span class="code">NULL</span>.</li>
+        <li><span class="ital">[EDIT: Added Jan - 27 - 2022]</span>
+        Finally, we gently recommend against using <span class="code">
+        this-&gt;</span> to refer to a class' members from inside of one of its
+        functions. Points will not be taken off for doing so, but
+        students should know that it is typically unnecessary.</li>
+    </ul>
+
+
+<!--    
+    <div class="section" id="Evaluate">How We Evaluate</div>
+
+    <div class="par">When we grade functionality of your code, one
+    thing we do is to use automated tests and compare your output to
+    the output we expect. If your results differ from ours on multiple
+    tests, we try to fix bugs that may have caused multiple tests to
+    fail, and will refund points for tests that failed due to a
+    "cascading error" &mdash; basically, we won't deduct points for
+    the same bug twice. HOWEVER, this process breaks when we spend an
+    hour looking at your code and cannot find a bug that we know must
+    exist. It takes way longer for us to do this debugging process if
+    we can't read your code. If you have readable, well documented
+    code, it is much more likely that you will get points back for
+    these errors, which often amounts to a difference of multiple
+    letter grades.</div>
+    <div class="par">This is another reason it is especially important to 
+    document wherever bugs occur in your code &mdash; any time we save by 
+    not having to find the bug ourselves, we can spend fixing the bug and 
+    then giving you back those cascading error points.</div>
+    -->
+    <p>
+    </p><div class="par">Finally, our parting word of advice is to always give 
+    your code a quick once-over immediately before submitting.
+    Maybe there are function contracts or file headers that are no longer 
+    relevant; maybe you forgot to document something as you were writing; 
+    or maybe there is a particularly complicated function that you will 
+    realize needs better in-line commenting. Documentation and Style points 
+    are, in many ways, the easiest points to earn on any given comp 15 
+    assignment — whether or not you have time to get your code 
+    working perfectly (or at all) before the due date, you can always get
+    full points for this section. Don't let yourself miss out on what 
+    should be very reliable credit just because something 
+    slipped your mind!</div>
+    
+    <div class="section"><a href="https://www.cs.tufts.edu/comp/15/reference/style/style.cpp">Code Examples Here!</a></div>
+    </li>
+    <li id="rightBody">
+        <a href="#Introduction"><div class="rightBox" id="introBox" style="background: lightblue none repeat scroll 0% 0%;">Introduction</div></a>
+        <a href="#TOC"><div class="rightBox" id="tocBox" style="background: white none repeat scroll 0% 0%;">Table of Contents</div></a>
+        <a href="#InternalDocumentation"><div class="rightBox" id="internalBox" style="background: white none repeat scroll 0% 0%;">Internal Documentation</div></a>
+        <a href="#CodeItself"><div class="rightBox" id="codeBox" style="background: white none repeat scroll 0% 0%;">The Code Itself</div></a>
+        <!-- <a href="#Evaluate"><div class="rightBox" id="evaluateBox">How We Evaluate</div></a> -->
+    </li>
+    </ul>
+
+
+</body></html>
